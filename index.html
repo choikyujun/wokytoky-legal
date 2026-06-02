@@ -10,8 +10,11 @@
     header { background: #085041; padding: 24px 20px; text-align: center; }
     header h1 { color: #e1f5ee; font-size: 28px; letter-spacing: 2px; }
     header p { color: #9fe1cb; font-size: 12px; margin-top: 4px; letter-spacing: 3px; }
+    .langbar { background: #074438; display: flex; justify-content: center; gap: 8px; padding: 10px; }
+    .langbar button { background: transparent; border: 1px solid #2f6b5a; color: #9fe1cb; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .langbar button.active { background: #e1f5ee; color: #085041; border-color: #e1f5ee; }
     nav { background: #fff; border-bottom: 1px solid #e0ded8; display: flex; justify-content: center; gap: 0; }
-    nav a { padding: 14px 32px; text-decoration: none; color: #888780; font-size: 14px; font-weight: 600; border-bottom: 2px solid transparent; transition: all 0.2s; }
+    nav a { padding: 14px 32px; text-decoration: none; color: #888780; font-size: 14px; font-weight: 600; border-bottom: 2px solid transparent; transition: all 0.2s; cursor: pointer; }
     nav a.active, nav a:hover { color: #085041; border-bottom-color: #085041; }
     .container { max-width: 800px; margin: 0 auto; padding: 32px 20px; }
     .section { background: #fff; border-radius: 12px; padding: 28px; margin-bottom: 16px; }
@@ -23,7 +26,6 @@
     .updated { font-size: 12px; color: #888780; margin-bottom: 20px; }
     .contact { background: #e1f5ee; border-radius: 10px; padding: 16px; margin-top: 20px; }
     .contact p { color: #085041; font-weight: 600; }
-    .hidden { display: none; }
     footer { text-align: center; padding: 24px; color: #888780; font-size: 12px; }
   </style>
 </head>
@@ -34,218 +36,140 @@
   <p>WORK · TALK · CONNECT</p>
 </header>
 
+<div class="langbar">
+  <button data-lang="en" class="active" onclick="setLang('en')">EN</button>
+  <button data-lang="ko" onclick="setLang('ko')">한국어</button>
+  <button data-lang="ja" onclick="setLang('ja')">日本語</button>
+</div>
+
 <nav>
-  <a href="#" class="active" onclick="show('privacy')">Privacy Policy</a>
-  <a href="#" onclick="show('terms')">Terms of Service</a>
+  <a id="navPrivacy" class="active" onclick="setPage('privacy')"></a>
+  <a id="navTerms" onclick="setPage('terms')"></a>
 </nav>
 
-<div class="container">
-
-  <!-- Privacy Policy -->
-  <div id="privacy">
-    <p class="updated">Last updated: June 2026</p>
-
-    <div class="section">
-      <h2>Privacy Policy</h2>
-      <p>WokyToky ("we", "our", or "us") is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our mobile application.</p>
-    </div>
-
-    <div class="section">
-      <h2>1. Information We Collect</h2>
-      <h3>Business Owner (Manager) Accounts</h3>
-      <ul>
-        <li>Email address and password (encrypted)</li>
-        <li>Company name and contact information</li>
-      </ul>
-      <h3>Worker Accounts</h3>
-      <ul>
-        <li>Workers join using an invite code through anonymous authentication — no email or password is required</li>
-        <li>Name, phone number, and preferred language</li>
-      </ul>
-      <h3>Usage Data</h3>
-      <ul>
-        <li>Chat messages (original and translated text)</li>
-        <li>Voice recordings — when you use voice input, audio is recorded and converted to text (speech-to-text)</li>
-        <li>Attendance records (check-in/check-out times)</li>
-        <li>GPS location data (only during attendance check)</li>
-        <li>Photos and videos shared in chat</li>
-        <li>Push notification tokens</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>2. How We Use Your Information</h2>
-      <ul>
-        <li>To provide and improve our services</li>
-        <li>To send push notifications for messages and announcements</li>
-        <li>To verify attendance using GPS location</li>
-        <li>To translate messages between languages</li>
-        <li>To convert voice input into text (speech recognition)</li>
-        <li>To manage employee attendance records</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>3. Data Storage & Security</h2>
-      <p>Your data is stored securely using Supabase (PostgreSQL database) with Row Level Security (RLS) enabled. Each company's data is completely isolated from other companies. All data is encrypted in transit using HTTPS. Requests to external processing services are routed through our secure server so that API credentials are never exposed in the app.</p>
-    </div>
-
-    <div class="section">
-      <h2>4. Third-Party Services</h2>
-      <ul>
-        <li><strong>Supabase</strong> — Database and authentication</li>
-        <li><strong>Google Cloud Translation API</strong> — Message translation (processed via our secure server)</li>
-        <li><strong>Google Cloud Speech-to-Text API</strong> — Voice-to-text conversion (processed via our secure server)</li>
-        <li><strong>Expo Push Notifications</strong> — Push notification delivery</li>
-        <li><strong>Firebase (FCM)</strong> — Android push notifications</li>
-      </ul>
-      <p style="margin-top:12px;">When you use translation or voice input, the relevant message text or audio is sent to Google's services for processing through our secure server. This data is used only to return the translation or transcription result.</p>
-    </div>
-
-    <div class="section">
-      <h2>5. Location Data</h2>
-      <p>GPS location is only collected at the moment of attendance check-in/check-out. Location data is used solely to verify that employees are within the designated work area. We do not track location continuously.</p>
-    </div>
-
-    <div class="section">
-      <h2>6. Data Retention & Deletion</h2>
-      <p>We retain your data for as long as your account is active. When you request account deletion, your data — including chat messages, attendance records, and announcements — is permanently deleted and cannot be recovered. Certain records may be retained where required by applicable law (for example, tax or payment records) for the period mandated by law. To request deletion, see our account deletion page or contact us using the details below.</p>
-    </div>
-
-    <div class="section">
-      <h2>7. Children's Privacy</h2>
-      <p>WokyToky is not intended for use by individuals under the age of 18. We do not knowingly collect personal information from children.</p>
-    </div>
-
-    <div class="section">
-      <h2>8. Your Rights</h2>
-      <ul>
-        <li>Access your personal data</li>
-        <li>Correct inaccurate data</li>
-        <li>Request deletion of your data</li>
-        <li>Export your data</li>
-        <li>Withdraw consent at any time</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>9. Contact Us</h2>
-      <div class="contact">
-        <p>📧 100bear@daum.net</p>
-        <p style="margin-top:8px; font-weight:400; color:#085041;">For privacy-related inquiries, please contact us and we will respond within 72 hours.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Terms of Service -->
-  <div id="terms" class="hidden">
-    <p class="updated">Last updated: June 2026</p>
-
-    <div class="section">
-      <h2>Terms of Service</h2>
-      <p>By downloading or using WokyToky, you agree to these Terms of Service. Please read them carefully before using the application.</p>
-    </div>
-
-    <div class="section">
-      <h2>1. Acceptance of Terms</h2>
-      <p>By accessing or using WokyToky, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the application.</p>
-    </div>
-
-    <div class="section">
-      <h2>2. Description of Service</h2>
-      <p>WokyToky is a workforce management application that provides:</p>
-      <ul>
-        <li>Multilingual chat with automatic translation</li>
-        <li>Voice input with speech-to-text conversion</li>
-        <li>Attendance management with GPS verification</li>
-        <li>Company-wide broadcast messaging</li>
-        <li>Employee management tools</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>3. User Accounts</h2>
-      <ul>
-        <li>Business owners create a company account with an email address and password, and must provide accurate information</li>
-        <li>Workers join a company using an invite code; no separate email or password is required</li>
-        <li>You are responsible for maintaining the security of your account and invite codes</li>
-        <li>You must notify us immediately of any unauthorized use</li>
-        <li>One company account per business entity</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>4. Acceptable Use</h2>
-      <p>You agree NOT to:</p>
-      <ul>
-        <li>Use the service for any illegal purpose</li>
-        <li>Harass, abuse, or harm other users</li>
-        <li>Share inappropriate or offensive content</li>
-        <li>Attempt to breach security measures</li>
-        <li>Use the service to spam or send unsolicited messages</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>5. Plans & Beta Service</h2>
-      <p>WokyToky offers Free, Basic, and Pro plans with different worker limits and features. During the beta period:</p>
-      <ul>
-        <li>Service may be interrupted for maintenance</li>
-        <li>Features may change without prior notice</li>
-        <li>Plan pricing and features may be adjusted as the service evolves</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>6. Intellectual Property</h2>
-      <p>WokyToky and its original content, features, and functionality are owned by the WokyToky team and are protected by international copyright laws.</p>
-    </div>
-
-    <div class="section">
-      <h2>7. Limitation of Liability</h2>
-      <p>WokyToky is provided "as is" without warranties of any kind. We are not liable for any indirect, incidental, or consequential damages arising from your use of the service.</p>
-    </div>
-
-    <div class="section">
-      <h2>8. Termination</h2>
-      <p>We reserve the right to suspend or terminate your account if you violate these Terms. You may delete your account at any time through the application settings or by requesting deletion via our account deletion page.</p>
-    </div>
-
-    <div class="section">
-      <h2>9. Changes to Terms</h2>
-      <p>We may update these Terms from time to time. We will notify you of significant changes via email or in-app notification. Continued use of the service after changes constitutes acceptance of the new Terms.</p>
-    </div>
-
-    <div class="section">
-      <h2>10. Governing Law</h2>
-      <p>These Terms are governed by the laws of the Republic of Korea. Any disputes shall be resolved in the courts of Korea.</p>
-    </div>
-
-    <div class="section">
-      <h2>11. Contact Us</h2>
-      <div class="contact">
-        <p>📧 100bear@daum.net</p>
-        <p style="margin-top:8px; font-weight:400; color:#085041;">For questions about these Terms, please contact us.</p>
-      </div>
-    </div>
-  </div>
-
-</div>
+<div class="container" id="content"></div>
 
 <footer>
   <p>© 2026 WokyToky. All rights reserved.</p>
 </footer>
 
 <script>
-  function show(page) {
-    document.getElementById('privacy').classList.add('hidden')
-    document.getElementById('terms').classList.add('hidden')
-    document.getElementById(page).classList.remove('hidden')
-    document.querySelectorAll('nav a').forEach((a, i) => {
-      a.classList.remove('active')
-    })
-    event.target.classList.add('active')
+  var navLabels = {
+    en: { privacy: 'Privacy Policy', terms: 'Terms of Service' },
+    ko: { privacy: '개인정보처리방침', terms: '이용약관' },
+    ja: { privacy: 'プライバシーポリシー', terms: '利用規約' }
+  };
+  var updatedLabel = { en: 'Last updated: June 2026', ko: '최종 업데이트: 2026년 6월', ja: '最終更新: 2026年6月' };
+
+  var C = {
+    en: {
+      privacy: `
+        <div class="section"><h2>Privacy Policy</h2><p>WokyToky ("we", "our", or "us") is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our mobile application.</p></div>
+        <div class="section"><h2>1. Information We Collect</h2>
+          <h3>Business Owner (Manager) Accounts</h3><ul><li>Email address and password (encrypted)</li><li>Company name and contact information</li></ul>
+          <h3>Worker Accounts</h3><ul><li>Workers join using an invite code through anonymous authentication — no email or password is required</li><li>Name, phone number, and preferred language</li></ul>
+          <h3>Usage Data</h3><ul><li>Chat messages (original and translated text)</li><li>Voice recordings — when you use voice input, audio is recorded and converted to text (speech-to-text)</li><li>Attendance records (check-in/check-out times)</li><li>GPS location data (only during attendance check)</li><li>Photos and videos shared in chat</li><li>Push notification tokens</li></ul></div>
+        <div class="section"><h2>2. How We Use Your Information</h2><ul><li>To provide and improve our services</li><li>To send push notifications for messages and announcements</li><li>To verify attendance using GPS location</li><li>To translate messages between languages</li><li>To convert voice input into text (speech recognition)</li><li>To manage employee attendance records</li></ul></div>
+        <div class="section"><h2>3. Data Storage & Security</h2><p>Your data is stored securely using Supabase (PostgreSQL database) with Row Level Security (RLS) enabled. Each company's data is completely isolated from other companies. All data is encrypted in transit using HTTPS. Requests to external processing services are routed through our secure server so that API credentials are never exposed in the app.</p></div>
+        <div class="section"><h2>4. Third-Party Services</h2><ul><li><strong>Supabase</strong> — Database and authentication</li><li><strong>Google Cloud Translation API</strong> — Message translation (processed via our secure server)</li><li><strong>Google Cloud Speech-to-Text API</strong> — Voice-to-text conversion (processed via our secure server)</li><li><strong>Expo Push Notifications</strong> — Push notification delivery</li><li><strong>Firebase (FCM)</strong> — Android push notifications</li></ul><p style="margin-top:12px;">When you use translation or voice input, the relevant message text or audio is sent to Google's services for processing through our secure server. This data is used only to return the translation or transcription result.</p></div>
+        <div class="section"><h2>5. Location Data</h2><p>GPS location is only collected at the moment of attendance check-in/check-out. Location data is used solely to verify that employees are within the designated work area. We do not track location continuously.</p></div>
+        <div class="section"><h2>6. Data Retention & Deletion</h2><p>We retain your data for as long as your account is active. When you request account deletion, your data — including chat messages, attendance records, and announcements — is permanently deleted and cannot be recovered. Certain records may be retained where required by applicable law (for example, tax or payment records) for the period mandated by law. To request deletion, see our account deletion page or contact us using the details below.</p></div>
+        <div class="section"><h2>7. Children's Privacy</h2><p>WokyToky is not intended for use by individuals under the age of 18. We do not knowingly collect personal information from children.</p></div>
+        <div class="section"><h2>8. Your Rights</h2><ul><li>Access your personal data</li><li>Correct inaccurate data</li><li>Request deletion of your data</li><li>Export your data</li><li>Withdraw consent at any time</li></ul></div>
+        <div class="section"><h2>9. Contact Us</h2><div class="contact"><p>📧 100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">For privacy-related inquiries, please contact us and we will respond within 72 hours.</p></div></div>`,
+      terms: `
+        <div class="section"><h2>Terms of Service</h2><p>By downloading or using WokyToky, you agree to these Terms of Service. Please read them carefully before using the application.</p></div>
+        <div class="section"><h2>1. Acceptance of Terms</h2><p>By accessing or using WokyToky, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the application.</p></div>
+        <div class="section"><h2>2. Description of Service</h2><p>WokyToky is a workforce management application that provides:</p><ul><li>Multilingual chat with automatic translation</li><li>Voice input with speech-to-text conversion</li><li>Attendance management with GPS verification</li><li>Company-wide broadcast messaging</li><li>Employee management tools</li></ul></div>
+        <div class="section"><h2>3. User Accounts</h2><ul><li>Business owners create a company account with an email address and password, and must provide accurate information</li><li>Workers join a company using an invite code; no separate email or password is required</li><li>You are responsible for maintaining the security of your account and invite codes</li><li>You must notify us immediately of any unauthorized use</li><li>One company account per business entity</li></ul></div>
+        <div class="section"><h2>4. Acceptable Use</h2><p>You agree NOT to:</p><ul><li>Use the service for any illegal purpose</li><li>Harass, abuse, or harm other users</li><li>Share inappropriate or offensive content</li><li>Attempt to breach security measures</li><li>Use the service to spam or send unsolicited messages</li></ul></div>
+        <div class="section"><h2>5. Plans & Beta Service</h2><p>WokyToky offers Free, Basic, and Pro plans with different worker limits and features. During the beta period:</p><ul><li>Service may be interrupted for maintenance</li><li>Features may change without prior notice</li><li>Plan pricing and features may be adjusted as the service evolves</li></ul></div>
+        <div class="section"><h2>6. Intellectual Property</h2><p>WokyToky and its original content, features, and functionality are owned by the WokyToky team and are protected by international copyright laws.</p></div>
+        <div class="section"><h2>7. Limitation of Liability</h2><p>WokyToky is provided "as is" without warranties of any kind. We are not liable for any indirect, incidental, or consequential damages arising from your use of the service.</p></div>
+        <div class="section"><h2>8. Termination</h2><p>We reserve the right to suspend or terminate your account if you violate these Terms. You may delete your account at any time through the application settings or by requesting deletion via our account deletion page.</p></div>
+        <div class="section"><h2>9. Changes to Terms</h2><p>We may update these Terms from time to time. We will notify you of significant changes via email or in-app notification. Continued use of the service after changes constitutes acceptance of the new Terms.</p></div>
+        <div class="section"><h2>10. Governing Law</h2><p>These Terms are governed by the laws of the Republic of Korea. Any disputes shall be resolved in the courts of Korea.</p></div>
+        <div class="section"><h2>11. Contact Us</h2><div class="contact"><p>📧 100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">For questions about these Terms, please contact us.</p></div></div>`
+    },
+    ko: {
+      privacy: `
+        <div class="section"><h2>개인정보처리방침</h2><p>WokyToky(이하 "당사")는 이용자의 개인정보를 보호하기 위해 최선을 다합니다. 본 개인정보처리방침은 당사 모바일 애플리케이션 이용 시 데이터를 어떻게 수집·이용·보호하는지 설명합니다.</p></div>
+        <div class="section"><h2>1. 수집하는 정보</h2>
+          <h3>관리자(사장님) 계정</h3><ul><li>이메일 주소 및 비밀번호(암호화)</li><li>회사명 및 연락처</li></ul>
+          <h3>직원 계정</h3><ul><li>직원은 초대코드를 통해 익명 인증으로 가입하며, 이메일이나 비밀번호가 필요하지 않습니다</li><li>이름, 전화번호, 선호 언어</li></ul>
+          <h3>이용 데이터</h3><ul><li>채팅 메시지(원문 및 번역문)</li><li>음성 녹음 — 음성 입력 사용 시 오디오가 녹음되어 텍스트로 변환됩니다(음성 인식)</li><li>근태 기록(출퇴근 시각)</li><li>GPS 위치 정보(출퇴근 확인 시에만)</li><li>채팅에서 공유한 사진·동영상</li><li>푸시 알림 토큰</li></ul></div>
+        <div class="section"><h2>2. 정보 이용 목적</h2><ul><li>서비스 제공 및 개선</li><li>메시지·공지에 대한 푸시 알림 전송</li><li>GPS 위치를 통한 근태 확인</li><li>언어 간 메시지 번역</li><li>음성 입력의 텍스트 변환(음성 인식)</li><li>근태 기록 관리</li></ul></div>
+        <div class="section"><h2>3. 데이터 저장 및 보안</h2><p>데이터는 행 수준 보안(RLS)이 적용된 Supabase(PostgreSQL 데이터베이스)에 안전하게 저장됩니다. 각 회사의 데이터는 다른 회사와 완전히 분리됩니다. 모든 데이터는 HTTPS를 통해 전송 중 암호화됩니다. 외부 처리 요청은 당사의 보안 서버를 경유하므로 API 자격증명이 앱에 노출되지 않습니다.</p></div>
+        <div class="section"><h2>4. 제3자 서비스</h2><ul><li><strong>Supabase</strong> — 데이터베이스 및 인증</li><li><strong>Google Cloud Translation API</strong> — 메시지 번역(당사 보안 서버 경유)</li><li><strong>Google Cloud Speech-to-Text API</strong> — 음성→텍스트 변환(당사 보안 서버 경유)</li><li><strong>Expo Push Notifications</strong> — 푸시 알림 전송</li><li><strong>Firebase (FCM)</strong> — 안드로이드 푸시 알림</li></ul><p style="margin-top:12px;">번역 또는 음성 입력 사용 시 해당 메시지 텍스트나 오디오가 당사 보안 서버를 통해 Google 서비스로 전송되어 처리되며, 번역·변환 결과 반환에만 사용됩니다.</p></div>
+        <div class="section"><h2>5. 위치 정보</h2><p>GPS 위치는 출퇴근 확인 시점에만 수집됩니다. 위치 정보는 직원이 지정된 근무 구역 내에 있는지 확인하는 용도로만 사용되며, 위치를 지속적으로 추적하지 않습니다.</p></div>
+        <div class="section"><h2>6. 데이터 보관 및 삭제</h2><p>계정이 활성 상태인 동안 데이터를 보관합니다. 계정 삭제를 요청하시면 채팅 메시지·근태 기록·공지를 포함한 데이터가 영구적으로 삭제되며 복구할 수 없습니다. 다만 관련 법령상 보관 의무가 있는 일부 기록(예: 세금·결제 내역)은 법정 기간 동안 보관될 수 있습니다. 삭제를 원하시면 계정 삭제 페이지를 이용하거나 아래 연락처로 문의해주세요.</p></div>
+        <div class="section"><h2>7. 아동의 개인정보</h2><p>WokyToky는 만 18세 미만의 이용을 대상으로 하지 않으며, 아동의 개인정보를 알면서 수집하지 않습니다.</p></div>
+        <div class="section"><h2>8. 이용자의 권리</h2><ul><li>개인정보 열람</li><li>부정확한 정보의 정정</li><li>데이터 삭제 요청</li><li>데이터 내보내기</li><li>언제든지 동의 철회</li></ul></div>
+        <div class="section"><h2>9. 문의</h2><div class="contact"><p>📧 100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">개인정보 관련 문의는 위 연락처로 주시면 72시간 이내에 답변드립니다.</p></div></div>`,
+      terms: `
+        <div class="section"><h2>이용약관</h2><p>WokyToky를 다운로드하거나 이용함으로써 본 이용약관에 동의하게 됩니다. 애플리케이션을 사용하기 전에 약관을 주의 깊게 읽어주세요.</p></div>
+        <div class="section"><h2>1. 약관의 동의</h2><p>WokyToky에 접속하거나 이를 이용함으로써 본 약관에 구속되는 데 동의합니다. 본 약관에 동의하지 않으시면 애플리케이션을 이용하지 말아주세요.</p></div>
+        <div class="section"><h2>2. 서비스 설명</h2><p>WokyToky는 다음을 제공하는 인력 관리 애플리케이션입니다:</p><ul><li>자동 번역 기능이 있는 다국어 채팅</li><li>음성 입력 및 음성→텍스트 변환</li><li>GPS 확인 기반 근태 관리</li><li>전사 공지(방송) 메시지</li><li>직원 관리 도구</li></ul></div>
+        <div class="section"><h2>3. 사용자 계정</h2><ul><li>관리자는 이메일 주소와 비밀번호로 회사 계정을 생성하며 정확한 정보를 제공해야 합니다</li><li>직원은 초대코드로 회사에 참여하며, 별도의 이메일이나 비밀번호가 필요하지 않습니다</li><li>계정 및 초대코드의 보안 유지는 이용자의 책임입니다</li><li>무단 사용을 발견하면 즉시 당사에 알려야 합니다</li><li>사업체당 회사 계정은 1개입니다</li></ul></div>
+        <div class="section"><h2>4. 금지 행위</h2><p>다음 행위를 하지 않는 데 동의합니다:</p><ul><li>불법적인 목적으로 서비스 이용</li><li>다른 이용자를 괴롭히거나 학대하거나 해치는 행위</li><li>부적절하거나 불쾌한 콘텐츠 공유</li><li>보안 조치를 침해하려는 시도</li><li>스팸이나 원치 않는 메시지 전송</li></ul></div>
+        <div class="section"><h2>5. 요금제 및 베타 서비스</h2><p>WokyToky는 직원 수와 기능이 다른 Free·Basic·Pro 요금제를 제공합니다. 베타 기간 동안:</p><ul><li>유지보수를 위해 서비스가 중단될 수 있습니다</li><li>사전 고지 없이 기능이 변경될 수 있습니다</li><li>요금과 기능은 서비스 발전에 따라 조정될 수 있습니다</li></ul></div>
+        <div class="section"><h2>6. 지식재산권</h2><p>WokyToky와 그 콘텐츠·기능은 WokyToky 팀에 귀속되며 국제 저작권법에 의해 보호됩니다.</p></div>
+        <div class="section"><h2>7. 책임의 제한</h2><p>WokyToky는 어떠한 보증도 없이 "있는 그대로" 제공됩니다. 당사는 서비스 이용으로 인해 발생하는 간접적·부수적·결과적 손해에 대해 책임지지 않습니다.</p></div>
+        <div class="section"><h2>8. 해지</h2><p>이용자가 본 약관을 위반하는 경우 당사는 계정을 정지하거나 해지할 권리가 있습니다. 이용자는 애플리케이션 설정 또는 계정 삭제 페이지를 통해 언제든지 계정을 삭제할 수 있습니다.</p></div>
+        <div class="section"><h2>9. 약관의 변경</h2><p>당사는 본 약관을 수시로 업데이트할 수 있습니다. 중요한 변경 사항은 이메일 또는 인앱 알림으로 안내드립니다. 변경 후에도 서비스를 계속 이용하면 새로운 약관에 동의한 것으로 간주됩니다.</p></div>
+        <div class="section"><h2>10. 준거법</h2><p>본 약관은 대한민국 법률에 따릅니다. 모든 분쟁은 대한민국 법원에서 해결됩니다.</p></div>
+        <div class="section"><h2>11. 문의</h2><div class="contact"><p>📧 100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">본 약관에 관한 문의는 위 연락처로 주세요.</p></div></div>`
+    },
+    ja: {
+      privacy: `
+        <div class="section"><h2>プライバシーポリシー</h2><p>WokyToky（以下「当社」）は、お客様の個人情報の保護に努めています。本プライバシーポリシーは、当社モバイルアプリのご利用時に、データをどのように収集・利用・保護するかを説明します。</p></div>
+        <div class="section"><h2>1. 収集する情報</h2>
+          <h3>管理者（経営者）アカウント</h3><ul><li>メールアドレスおよびパスワード（暗号化）</li><li>会社名および連絡先</li></ul>
+          <h3>従業員アカウント</h3><ul><li>従業員は招待コードを使い匿名認証で参加し、メールアドレスやパスワードは不要です</li><li>氏名、電話番号、希望言語</li></ul>
+          <h3>利用データ</h3><ul><li>チャットメッセージ（原文および翻訳文）</li><li>音声録音 — 音声入力を使用すると、音声が録音されテキストに変換されます（音声認識）</li><li>勤怠記録（出退勤時刻）</li><li>GPS位置情報（勤怠確認時のみ）</li><li>チャットで共有した写真・動画</li><li>プッシュ通知トークン</li></ul></div>
+        <div class="section"><h2>2. 情報の利用目的</h2><ul><li>サービスの提供および改善</li><li>メッセージ・お知らせのプッシュ通知の送信</li><li>GPSによる勤怠確認</li><li>言語間のメッセージ翻訳</li><li>音声入力のテキスト変換（音声認識）</li><li>勤怠記録の管理</li></ul></div>
+        <div class="section"><h2>3. データの保存とセキュリティ</h2><p>データは、行レベルセキュリティ（RLS）を有効にしたSupabase（PostgreSQLデータベース）に安全に保存されます。各会社のデータは他社と完全に分離されています。すべてのデータはHTTPSにより通信中に暗号化されます。外部処理リクエストは当社のセキュアサーバーを経由するため、APIの認証情報がアプリ内に露出することはありません。</p></div>
+        <div class="section"><h2>4. 第三者サービス</h2><ul><li><strong>Supabase</strong> — データベースおよび認証</li><li><strong>Google Cloud Translation API</strong> — メッセージ翻訳（当社セキュアサーバー経由）</li><li><strong>Google Cloud Speech-to-Text API</strong> — 音声→テキスト変換（当社セキュアサーバー経由）</li><li><strong>Expo Push Notifications</strong> — プッシュ通知の配信</li><li><strong>Firebase (FCM)</strong> — Androidプッシュ通知</li></ul><p style="margin-top:12px;">翻訳または音声入力の使用時、該当するメッセージテキストや音声は当社のセキュアサーバーを通じてGoogleのサービスに送信され処理され、翻訳・変換結果の返却のみに使用されます。</p></div>
+        <div class="section"><h2>5. 位置情報</h2><p>GPS位置情報は出退勤の確認時点のみ収集されます。位置情報は、従業員が指定された勤務エリア内にいるかを確認する目的のみに使用され、位置を継続的に追跡することはありません。</p></div>
+        <div class="section"><h2>6. データの保存と削除</h2><p>アカウントが有効な間、データを保存します。アカウント削除をご請求いただくと、チャットメッセージ・勤怠記録・お知らせを含むデータは永久に削除され、復元できません。ただし、関連法令により保存義務がある一部の記録（例：税務・決済記録）は法定期間保存される場合があります。削除をご希望の場合は、アカウント削除ページをご利用いただくか、下記の連絡先までお問い合わせください。</p></div>
+        <div class="section"><h2>7. 児童のプライバシー</h2><p>WokyTokyは18歳未満の方のご利用を想定しておらず、児童の個人情報を意図的に収集することはありません。</p></div>
+        <div class="section"><h2>8. お客様の権利</h2><ul><li>個人データへのアクセス</li><li>不正確なデータの訂正</li><li>データ削除の請求</li><li>データのエクスポート</li><li>いつでも同意の撤回</li></ul></div>
+        <div class="section"><h2>9. お問い合わせ</h2><div class="contact"><p>📧 100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">プライバシーに関するお問い合わせは上記までご連絡ください。72時間以内に回答いたします。</p></div></div>`,
+      terms: `
+        <div class="section"><h2>利用規約</h2><p>WokyTokyをダウンロードまたは利用することで、本利用規約に同意したものとみなされます。アプリをご利用になる前に、よくお読みください。</p></div>
+        <div class="section"><h2>1. 規約への同意</h2><p>WokyTokyにアクセスまたは利用することで、本規約に拘束されることに同意します。本規約に同意されない場合は、アプリをご利用にならないでください。</p></div>
+        <div class="section"><h2>2. サービスの説明</h2><p>WokyTokyは、以下を提供する人材管理アプリです：</p><ul><li>自動翻訳付きの多言語チャット</li><li>音声入力および音声→テキスト変換</li><li>GPS確認付きの勤怠管理</li><li>全社一斉のお知らせ（ブロードキャスト）</li><li>従業員管理ツール</li></ul></div>
+        <div class="section"><h2>3. ユーザーアカウント</h2><ul><li>管理者はメールアドレスとパスワードで会社アカウントを作成し、正確な情報を提供する必要があります</li><li>従業員は招待コードで会社に参加し、別途のメールアドレスやパスワードは不要です</li><li>アカウントおよび招待コードのセキュリティ管理はお客様の責任です</li><li>不正利用に気づいた場合は、直ちに当社にご連絡ください</li><li>1事業者につき会社アカウントは1つです</li></ul></div>
+        <div class="section"><h2>4. 禁止事項</h2><p>以下の行為を行わないことに同意します：</p><ul><li>違法な目的でのサービス利用</li><li>他のユーザーへの嫌がらせ・虐待・加害</li><li>不適切または攻撃的なコンテンツの共有</li><li>セキュリティ対策を侵害しようとする試み</li><li>スパムや迷惑メッセージの送信</li></ul></div>
+        <div class="section"><h2>5. プランおよびベータサービス</h2><p>WokyTokyは、従業員数や機能が異なるFree・Basic・Proのプランを提供します。ベータ期間中は：</p><ul><li>メンテナンスによりサービスが中断される場合があります</li><li>機能が予告なく変更される場合があります</li><li>料金や機能はサービスの発展に応じて調整される場合があります</li></ul></div>
+        <div class="section"><h2>6. 知的財産権</h2><p>WokyTokyおよびそのコンテンツ・機能はWokyTokyチームに帰属し、国際的な著作権法によって保護されています。</p></div>
+        <div class="section"><h2>7. 責任の制限</h2><p>WokyTokyはいかなる保証もなく「現状のまま」提供されます。当社は、サービスの利用によって生じた間接的・付随的・結果的損害について責任を負いません。</p></div>
+        <div class="section"><h2>8. 解約</h2><p>お客様が本規約に違反した場合、当社はアカウントを停止または解約する権利を有します。お客様はアプリの設定またはアカウント削除ページから、いつでもアカウントを削除できます。</p></div>
+        <div class="section"><h2>9. 規約の変更</h2><p>当社は本規約を随時更新することがあります。重要な変更については、メールまたはアプリ内通知でお知らせします。変更後も利用を継続された場合、新しい規約に同意したものとみなされます。</p></div>
+        <div class="section"><h2>10. 準拠法</h2><p>本規約は大韓民国の法律に準拠します。あらゆる紛争は大韓民国の裁判所で解決されます。</p></div>
+        <div class="section"><h2>11. お問い合わせ</h2><div class="contact"><p>📧 100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">本規約に関するお問い合わせは上記までご連絡ください。</p></div></div>`
+    }
+  };
+
+  var curLang = 'en';
+  var curPage = 'privacy';
+
+  function render() {
+    document.documentElement.lang = curLang;
+    document.getElementById('navPrivacy').textContent = navLabels[curLang].privacy;
+    document.getElementById('navTerms').textContent = navLabels[curLang].terms;
+    document.getElementById('navPrivacy').className = (curPage === 'privacy') ? 'active' : '';
+    document.getElementById('navTerms').className = (curPage === 'terms') ? 'active' : '';
+    var langBtns = document.querySelectorAll('.langbar button');
+    for (var i = 0; i < langBtns.length; i++) {
+      langBtns[i].className = (langBtns[i].getAttribute('data-lang') === curLang) ? 'active' : '';
+    }
+    document.getElementById('content').innerHTML =
+      '<p class="updated">' + updatedLabel[curLang] + '</p>' + C[curLang][curPage];
   }
+  function setLang(l) { curLang = l; render(); }
+  function setPage(p) { curPage = p; render(); }
+  render();
 </script>
 
 </body>
