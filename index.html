@@ -43,7 +43,7 @@
 
   <!-- Privacy Policy -->
   <div id="privacy">
-    <p class="updated">Last updated: May 2026</p>
+    <p class="updated">Last updated: June 2026</p>
 
     <div class="section">
       <h2>Privacy Policy</h2>
@@ -52,15 +52,20 @@
 
     <div class="section">
       <h2>1. Information We Collect</h2>
-      <h3>Account Information</h3>
+      <h3>Business Owner (Manager) Accounts</h3>
       <ul>
         <li>Email address and password (encrypted)</li>
         <li>Company name and contact information</li>
-        <li>Employee names and phone numbers</li>
+      </ul>
+      <h3>Worker Accounts</h3>
+      <ul>
+        <li>Workers join using an invite code through anonymous authentication — no email or password is required</li>
+        <li>Name, phone number, and preferred language</li>
       </ul>
       <h3>Usage Data</h3>
       <ul>
-        <li>Chat messages (stored securely in Supabase)</li>
+        <li>Chat messages (original and translated text)</li>
+        <li>Voice recordings — when you use voice input, audio is recorded and converted to text (speech-to-text)</li>
         <li>Attendance records (check-in/check-out times)</li>
         <li>GPS location data (only during attendance check)</li>
         <li>Photos and videos shared in chat</li>
@@ -75,23 +80,26 @@
         <li>To send push notifications for messages and announcements</li>
         <li>To verify attendance using GPS location</li>
         <li>To translate messages between languages</li>
+        <li>To convert voice input into text (speech recognition)</li>
         <li>To manage employee attendance records</li>
       </ul>
     </div>
 
     <div class="section">
       <h2>3. Data Storage & Security</h2>
-      <p>Your data is stored securely using Supabase (PostgreSQL database) with Row Level Security (RLS) enabled. Each company's data is completely isolated from other companies. All data is encrypted in transit using HTTPS.</p>
+      <p>Your data is stored securely using Supabase (PostgreSQL database) with Row Level Security (RLS) enabled. Each company's data is completely isolated from other companies. All data is encrypted in transit using HTTPS. Requests to external processing services are routed through our secure server so that API credentials are never exposed in the app.</p>
     </div>
 
     <div class="section">
       <h2>4. Third-Party Services</h2>
       <ul>
         <li><strong>Supabase</strong> — Database and authentication</li>
-        <li><strong>Google Translate API</strong> — Message translation</li>
+        <li><strong>Google Cloud Translation API</strong> — Message translation (processed via our secure server)</li>
+        <li><strong>Google Cloud Speech-to-Text API</strong> — Voice-to-text conversion (processed via our secure server)</li>
         <li><strong>Expo Push Notifications</strong> — Push notification delivery</li>
         <li><strong>Firebase (FCM)</strong> — Android push notifications</li>
       </ul>
+      <p style="margin-top:12px;">When you use translation or voice input, the relevant message text or audio is sent to Google's services for processing through our secure server. This data is used only to return the translation or transcription result.</p>
     </div>
 
     <div class="section">
@@ -100,8 +108,8 @@
     </div>
 
     <div class="section">
-      <h2>6. Data Retention</h2>
-      <p>We retain your data for as long as your account is active. You may request deletion of your account and all associated data by contacting us. Chat messages and attendance records are retained for up to 1 year after account deletion.</p>
+      <h2>6. Data Retention & Deletion</h2>
+      <p>We retain your data for as long as your account is active. When you request account deletion, your data — including chat messages, attendance records, and announcements — is permanently deleted and cannot be recovered. Certain records may be retained where required by applicable law (for example, tax or payment records) for the period mandated by law. To request deletion, see our account deletion page or contact us using the details below.</p>
     </div>
 
     <div class="section">
@@ -131,7 +139,7 @@
 
   <!-- Terms of Service -->
   <div id="terms" class="hidden">
-    <p class="updated">Last updated: May 2026</p>
+    <p class="updated">Last updated: June 2026</p>
 
     <div class="section">
       <h2>Terms of Service</h2>
@@ -148,7 +156,8 @@
       <p>WokyToky is a workforce management application that provides:</p>
       <ul>
         <li>Multilingual chat with automatic translation</li>
-        <li>Attendance management with QR code and GPS verification</li>
+        <li>Voice input with speech-to-text conversion</li>
+        <li>Attendance management with GPS verification</li>
         <li>Company-wide broadcast messaging</li>
         <li>Employee management tools</li>
       </ul>
@@ -157,8 +166,9 @@
     <div class="section">
       <h2>3. User Accounts</h2>
       <ul>
-        <li>You must provide accurate information when creating an account</li>
-        <li>You are responsible for maintaining the security of your account</li>
+        <li>Business owners create a company account with an email address and password, and must provide accurate information</li>
+        <li>Workers join a company using an invite code; no separate email or password is required</li>
+        <li>You are responsible for maintaining the security of your account and invite codes</li>
         <li>You must notify us immediately of any unauthorized use</li>
         <li>One company account per business entity</li>
       </ul>
@@ -177,13 +187,12 @@
     </div>
 
     <div class="section">
-      <h2>5. Beta Service</h2>
-      <p>WokyToky is currently in beta. During the beta period:</p>
+      <h2>5. Plans & Beta Service</h2>
+      <p>WokyToky offers Free, Basic, and Pro plans with different worker limits and features. During the beta period:</p>
       <ul>
-        <li>All features are provided free of charge</li>
         <li>Service may be interrupted for maintenance</li>
         <li>Features may change without prior notice</li>
-        <li>We reserve the right to introduce paid plans after the beta period</li>
+        <li>Plan pricing and features may be adjusted as the service evolves</li>
       </ul>
     </div>
 
@@ -199,7 +208,7 @@
 
     <div class="section">
       <h2>8. Termination</h2>
-      <p>We reserve the right to suspend or terminate your account if you violate these Terms. You may delete your account at any time through the application settings.</p>
+      <p>We reserve the right to suspend or terminate your account if you violate these Terms. You may delete your account at any time through the application settings or by requesting deletion via our account deletion page.</p>
     </div>
 
     <div class="section">
