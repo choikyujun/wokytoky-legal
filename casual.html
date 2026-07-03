@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WokyToky Casual - Legal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; color: #1a1a18; }
+    header { background: #085041; padding: 24px 20px; text-align: center; }
+    header h1 { color: #e1f5ee; font-size: 28px; letter-spacing: 2px; }
+    header p { color: #9fe1cb; font-size: 12px; margin-top: 4px; letter-spacing: 3px; }
+    .langbar { background: #074438; display: flex; justify-content: center; gap: 8px; padding: 10px; }
+    .langbar button { background: transparent; border: 1px solid #2f6b5a; color: #9fe1cb; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .langbar button.active { background: #e1f5ee; color: #085041; border-color: #e1f5ee; }
+    nav { background: #fff; border-bottom: 1px solid #e0ded8; display: flex; justify-content: center; gap: 0; }
+    nav a { padding: 14px 32px; text-decoration: none; color: #888780; font-size: 14px; font-weight: 600; border-bottom: 2px solid transparent; transition: all 0.2s; cursor: pointer; }
+    nav a.active, nav a:hover { color: #085041; border-bottom-color: #085041; }
+    .container { max-width: 800px; margin: 0 auto; padding: 32px 20px; }
+    .section { background: #fff; border-radius: 12px; padding: 28px; margin-bottom: 16px; }
+    h2 { font-size: 20px; color: #085041; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e0ded8; }
+    h3 { font-size: 15px; color: #1a1a18; margin: 16px 0 8px; }
+    p, li { font-size: 14px; line-height: 1.8; color: #444441; }
+    ul { padding-left: 20px; margin: 8px 0; }
+    li { margin-bottom: 4px; }
+    .updated { font-size: 12px; color: #888780; margin-bottom: 20px; }
+    .contact { background: #e1f5ee; border-radius: 10px; padding: 16px; margin-top: 20px; }
+    .contact p { color: #085041; font-weight: 600; }
+    footer { text-align: center; padding: 24px; color: #888780; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>WokyToky Casual</h1>
+  <p>REAL-TIME INTERPRETATION</p>
+</header>
+
+<div class="langbar">
+  <button data-lang="en" class="active" onclick="setLang('en')">EN</button>
+  <button data-lang="ko" onclick="setLang('ko')">한국어</button>
+  <button data-lang="ja" onclick="setLang('ja')">日本語</button>
+</div>
+
+<nav>
+  <a id="navPrivacy" class="active" onclick="setPage('privacy')"></a>
+  <a id="navTerms" onclick="setPage('terms')"></a>
+</nav>
+
+<div class="container" id="content"></div>
+
+<footer>
+  <p>© 2026 WokyToky. All rights reserved.</p>
+</footer>
+
+<script>
+  var navLabels = {
+    en: { privacy: 'Privacy Policy', terms: 'Terms of Service' },
+    ko: { privacy: '개인정보처리방침', terms: '이용약관' },
+    ja: { privacy: 'プライバシーポリシー', terms: '利用規約' }
+  };
+  var updatedLabel = {
+    en: 'Last updated: June 29, 2026',
+    ko: '최종 업데이트: 2026년 6월 29일',
+    ja: '最終更新: 2026年6月29日'
+  };
+
+  var C = {
+    en: {
+      privacy: `
+        <div class="section"><h2>Privacy Policy</h2><p>WokyToky Casual ("we", "our", or "us") provides real-time speech interpretation without requiring an account. This Privacy Policy explains what information we process when you use our mobile application.</p></div>
+
+        <div class="section"><h2>1. Information We Collect</h2>
+          <p>WokyToky Casual is used without an account. We process the following:</p>
+          <h3>Anonymous Identifier</h3>
+          <p>An anonymous identifier (UUID) is generated automatically when you use the app. It is not linked to your name, email, or phone number and does not identify you personally.</p>
+          <h3>Nickname (Display Name)</h3>
+          <p>You enter a nickname to show in a room. It does not need to be your real name.</p>
+          <h3>Spoken Content (Captions)</h3>
+          <p>For interpretation, what you say is converted to text, delivered as captions to room participants, and stored as a record.</p>
+          <h3>Optional Attendee Info</h3>
+          <p>Only in rooms where the host has enabled "collect attendee info," participants may enter their real name, affiliation, and country. This is collected only in such rooms.</p>
+          <h3>We Do NOT Collect</h3>
+          <ul>
+            <li>Email address, phone number, or account password</li>
+            <li>Location data (GPS)</li>
+            <li>Photos or videos</li>
+            <li>Audio recording files</li>
+            <li>Device fingerprints or advertising identifiers</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>2. Voice Data</h2>
+          <p>We do not store your voice. What you say is converted to text for real-time speech recognition and then immediately discarded. No audio is stored on our servers or your device; only the converted text (captions) is kept as a record.</p>
+        </div>
+
+        <div class="section"><h2>3. How We Use Your Information</h2>
+          <p>We use collected information only to:</p>
+          <ul>
+            <li>Provide real-time speech recognition and interpretation (translation)</li>
+            <li>Create, store, and display records of conversations, meetings, and lectures</li>
+            <li>Provide an attendee list (only in rooms collecting optional info)</li>
+            <li>Verify subscription status and manage service capacity</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. Third-Party Services</h2>
+          <p>To provide the service, information is transmitted to the following external services:</p>
+          <ul>
+            <li><strong>Google Cloud Speech-to-Text</strong> — Audio is sent for speech recognition (not stored). It is relayed via our server (Edge Function); the app contains no API keys.</li>
+            <li><strong>Google Cloud Translation</strong> — Text is sent for caption translation.</li>
+            <li><strong>Supabase (USA)</strong> — Data storage and anonymous authentication, over HTTPS with access control (RLS).</li>
+            <li><strong>Apple App Store / Google Play</strong> — Subscription payment processing. Payment details are handled by Apple/Google; we do not collect card information.</li>
+          </ul>
+          <p style="margin-top:12px;">Audio and text sent to Google services are processed only to return the recognition or translation result and are not retained by us.</p>
+        </div>
+
+        <div class="section"><h2>5. Data Retention</h2>
+          <ul>
+            <li><strong>Free rooms:</strong> Records are kept for 7 days after the room ends, then permanently deleted automatically.</li>
+            <li><strong>Pro rooms:</strong> Records from rooms created under a Pro subscription are kept without a time limit. Existing records remain even after the subscription ends.</li>
+            <li><strong>Deletion:</strong> The host can delete a record at any time. Once deleted, attendees can no longer view it.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>6. Optional Attendee Information</h2>
+          <p>A host may enable "collect attendee info," in which case participants are asked to enter their real name, affiliation, and country. This information is used only to compile the attendee list for that room and follows the same retention policy as the room's records (free: 7 days / Pro: unlimited). In rooms where the feature is off, none of this is collected.</p>
+        </div>
+
+        <div class="section"><h2>7. Data Security</h2>
+          <p>All communication is encrypted over HTTPS, and the database is access-restricted with row-level security (RLS). External API keys are isolated on the server (Edge Function) and never exposed in the app.</p>
+        </div>
+
+        <div class="section"><h2>8. Children's Privacy</h2>
+          <p>This service is not intended for children under 13. We delete relevant information if we learn a user is under 13.</p>
+        </div>
+
+        <div class="section"><h2>9. Your Rights</h2>
+          <p>You have the following rights regarding your records:</p>
+          <ul>
+            <li><strong>Access:</strong> View records of rooms you joined under "My Records" in the app.</li>
+            <li><strong>Deletion:</strong> Hosts can delete room records directly; free-room records are auto-deleted after 7 days.</li>
+            <li><strong>Inquiries:</strong> Contact us below for privacy-related questions.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>10. Changes to This Policy</h2>
+          <p>This policy may change. Significant changes will be announced via the app or this page. Continued use of the service after changes constitutes acceptance of the updated policy.</p>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">For privacy-related inquiries, please contact us and we will respond within 72 hours.</p></div>
+        </div>`,
+
+      terms: `
+        <div class="section"><h2>Terms of Service</h2><p>By downloading or using WokyToky Casual, you agree to these Terms of Service. Please read them carefully before using the application.</p></div>
+
+        <div class="section"><h2>1. Acceptance of Terms</h2>
+          <p>By accessing or using WokyToky Casual, you agree to be bound by these Terms. If you do not agree, please do not use the application.</p>
+        </div>
+
+        <div class="section"><h2>2. Description of Service</h2>
+          <p>WokyToky Casual is a real-time interpretation and recording service that provides:</p>
+          <ul>
+            <li>Real-time speech recognition and multilingual interpretation (captions) during conversations, meetings, and lectures</li>
+            <li>Room records viewable after the session ends</li>
+            <li>Subscription plans for extended features and unlimited record retention</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>3. Anonymous Accounts</h2>
+          <ul>
+            <li>WokyToky Casual does not require an email address or password. An anonymous identifier is generated automatically.</li>
+            <li>You are responsible for managing access to your device. We cannot recover your session if the anonymous identifier is lost.</li>
+            <li>You must not misuse or share access to another user's session.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. Subscriptions &amp; Billing</h2>
+          <ul>
+            <li>Pro plans are available per mode: Gathering Pro, Meeting Pro, Lecture Pro, and Lecture Pro Plus.</li>
+            <li>All payments are processed through the Apple App Store or Google Play. We do not handle card information directly.</li>
+            <li>Subscriptions renew automatically unless cancelled at least 24 hours before the renewal date through your App Store or Google Play account settings.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>5. Refund Policy</h2>
+          <p>Refunds are governed by Apple App Store or Google Play policies. Contact the respective store for refund requests; we do not process refunds directly.</p>
+        </div>
+
+        <div class="section"><h2>6. Acceptable Use</h2>
+          <p>You agree NOT to:</p>
+          <ul>
+            <li>Use the service for any illegal purpose</li>
+            <li>Record or redistribute room content without the consent of all participants</li>
+            <li>Attempt to breach security measures or circumvent usage limits</li>
+            <li>Harass, abuse, or harm other participants</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. Interpretation Accuracy</h2>
+          <p>WokyToky Casual uses automated speech recognition and machine translation. We do not guarantee the accuracy, completeness, or timeliness of interpreted content. Do not rely solely on automated interpretation for legally or medically binding communications.</p>
+        </div>
+
+        <div class="section"><h2>8. Limitation of Liability</h2>
+          <p>WokyToky Casual is provided "as is" without warranties of any kind. We are not liable for any indirect, incidental, or consequential damages arising from your use of the service.</p>
+        </div>
+
+        <div class="section"><h2>9. Termination</h2>
+          <p>We reserve the right to suspend or terminate service access if you violate these Terms. You may stop using the service at any time.</p>
+        </div>
+
+        <div class="section"><h2>10. Changes to Terms</h2>
+          <p>We may update these Terms from time to time. Significant changes will be announced via the app or this page. Continued use after changes constitutes acceptance of the new Terms.</p>
+        </div>
+
+        <div class="section"><h2>11. Governing Law</h2>
+          <p>These Terms are governed by the laws of the Republic of Korea. Any disputes shall be resolved in the courts of Korea.</p>
+        </div>
+
+        <div class="section"><h2>12. Contact Us</h2>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">For questions about these Terms, please contact us.</p></div>
+        </div>`
+    },
+
+    ko: {
+      privacy: `
+        <div class="section"><h2>개인정보처리방침</h2><p>WokyToky Casual(이하 "당사")은 계정 없이 사용하는 실시간 통역 서비스입니다. 본 개인정보처리방침은 모바일 애플리케이션 이용 시 당사가 처리하는 정보를 설명합니다.</p></div>
+
+        <div class="section"><h2>1. 수집하는 정보</h2>
+          <p>WokyToky Casual은 계정 없이 사용합니다. 다음 정보를 처리합니다.</p>
+          <h3>익명 식별자</h3>
+          <p>앱 사용 시 익명 식별자(UUID)가 자동 생성됩니다. 이름·이메일·전화번호와 연결되지 않으며, 개인을 식별하지 않습니다.</p>
+          <h3>닉네임(표시 이름)</h3>
+          <p>방에서 표시할 닉네임을 직접 입력합니다. 실명일 필요가 없습니다.</p>
+          <h3>발화 내용(자막)</h3>
+          <p>통역을 위해 말한 내용이 텍스트로 변환되어 방 참가자에게 자막으로 전달되고, 기록으로 저장됩니다.</p>
+          <h3>선택적 참석자 정보</h3>
+          <p>방 주최자가 '참석자 정보 수집'을 켠 방에 한해, 참가자가 실명·소속·국가를 입력할 수 있습니다. 이 방에서만 수집됩니다.</p>
+          <h3>수집하지 않는 정보</h3>
+          <ul>
+            <li>이메일·전화번호·계정 비밀번호</li>
+            <li>위치 정보(GPS)</li>
+            <li>사진·동영상</li>
+            <li>오디오 녹음 파일</li>
+            <li>기기 지문·광고 식별자</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>2. 음성 데이터</h2>
+          <p>음성을 저장하지 않습니다. 말한 내용은 실시간 음성 인식을 위해 텍스트로 변환된 후 즉시 소멸됩니다. 오디오 원본은 서버나 기기에 저장되지 않으며, 변환된 텍스트(자막)만 기록으로 남습니다.</p>
+        </div>
+
+        <div class="section"><h2>3. 정보 이용 목적</h2>
+          <p>수집한 정보는 다음 목적으로만 사용합니다.</p>
+          <ul>
+            <li>실시간 음성 인식 및 통역(번역) 제공</li>
+            <li>대화·회의·강의 기록 생성·저장·열람</li>
+            <li>참석자 명단 제공(선택적 정보 수집 방에 한함)</li>
+            <li>구독 상태 확인 및 서비스 정원 관리</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. 제3자 서비스</h2>
+          <p>서비스 제공을 위해 다음 외부 서비스에 정보가 전송됩니다.</p>
+          <ul>
+            <li><strong>Google Cloud Speech-to-Text</strong> — 음성 인식을 위해 오디오가 전송됩니다(저장되지 않음). 당사 서버(Edge Function)를 경유하며, 앱에는 API 키가 포함되지 않습니다.</li>
+            <li><strong>Google Cloud Translation</strong> — 자막 번역을 위해 텍스트가 전송됩니다.</li>
+            <li><strong>Supabase(미국)</strong> — 데이터 저장 및 익명 인증. HTTPS로 전송되며 접근 제어(RLS)가 적용됩니다.</li>
+            <li><strong>Apple App Store / Google Play</strong> — 구독 결제 처리. 결제 수단 정보는 Apple/Google이 처리하며 당사는 카드 정보를 수집하지 않습니다.</li>
+          </ul>
+          <p style="margin-top:12px;">Google 서비스에 전송된 오디오·텍스트는 인식·번역 결과 반환에만 사용되며 당사가 보관하지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>5. 기록 보존 정책</h2>
+          <ul>
+            <li><strong>무료 방:</strong> 기록은 방 종료 후 7일간 보관되며, 이후 자동으로 영구 삭제됩니다.</li>
+            <li><strong>Pro 방:</strong> Pro 구독으로 만든 방의 기록은 기간 제한 없이 보관됩니다. 구독이 종료되어도 이미 생성된 기록은 유지됩니다.</li>
+            <li><strong>삭제:</strong> 방 주최자는 언제든 기록을 삭제할 수 있습니다. 삭제 시 참가자는 더 이상 해당 기록을 볼 수 없습니다.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>6. 선택적 개인정보 수집</h2>
+          <p>방 주최자는 '참석자 정보 수집' 기능을 켤 수 있으며, 이 경우에만 참가자에게 실명·소속·국가 입력을 요청합니다. 이 정보는 해당 방의 참석자 명단 작성 목적으로만 사용되며, 방 기록과 동일한 보존 정책(무료 7일 / Pro 무제한)이 적용됩니다. 기능이 꺼진 방에서는 이러한 정보를 수집하지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>7. 데이터 보안</h2>
+          <p>모든 통신은 HTTPS로 암호화되며, 데이터베이스는 행 수준 보안(RLS)으로 접근이 제한됩니다. 외부 API 키는 서버(Edge Function)에 격리되어 앱에 노출되지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>8. 아동의 개인정보</h2>
+          <p>본 서비스는 만 13세 미만 아동을 대상으로 하지 않으며, 이용자가 만 13세 미만임을 알게 된 경우 관련 정보를 삭제합니다.</p>
+        </div>
+
+        <div class="section"><h2>9. 이용자의 권리</h2>
+          <p>이용자는 자신의 기록에 대해 다음 권리를 가집니다.</p>
+          <ul>
+            <li><strong>열람:</strong> 앱의 '내 기록'에서 참여한 방의 기록을 확인할 수 있습니다.</li>
+            <li><strong>삭제:</strong> 주최자는 방 기록을 직접 삭제할 수 있으며, 무료 방 기록은 7일 후 자동 삭제됩니다.</li>
+            <li><strong>문의:</strong> 개인정보 관련 문의는 아래 연락처로 주세요.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>10. 방침 변경 및 문의</h2>
+          <p>본 방침은 변경될 수 있으며, 중요한 변경 시 앱 또는 본 페이지를 통해 공지합니다. 변경 후 서비스를 계속 이용하면 변경된 방침에 동의한 것으로 간주됩니다.</p>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">개인정보 관련 문의는 위 연락처로 주시면 72시간 이내에 답변드립니다.</p></div>
+        </div>`,
+
+      terms: `
+        <div class="section"><h2>이용약관</h2><p>WokyToky Casual을 다운로드하거나 이용함으로써 본 이용약관에 동의하게 됩니다. 애플리케이션을 사용하기 전에 약관을 주의 깊게 읽어주세요.</p></div>
+
+        <div class="section"><h2>1. 약관의 동의</h2>
+          <p>WokyToky Casual에 접속하거나 이를 이용함으로써 본 약관에 구속되는 데 동의합니다. 본 약관에 동의하지 않으시면 애플리케이션을 이용하지 말아주세요.</p>
+        </div>
+
+        <div class="section"><h2>2. 서비스 설명</h2>
+          <p>WokyToky Casual은 다음을 제공하는 실시간 통역·기록 서비스입니다.</p>
+          <ul>
+            <li>대화·회의·강의 중 실시간 음성 인식 및 다국어 통역(자막)</li>
+            <li>세션 종료 후 열람 가능한 방 기록</li>
+            <li>확장 기능 및 무제한 기록 보관을 위한 구독 플랜</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>3. 익명 계정</h2>
+          <ul>
+            <li>WokyToky Casual은 이메일 주소나 비밀번호가 필요하지 않으며, 익명 식별자가 자동 생성됩니다.</li>
+            <li>기기 접근 관리는 이용자의 책임입니다. 익명 식별자가 분실된 경우 세션을 복구할 수 없습니다.</li>
+            <li>다른 이용자의 세션에 무단으로 접근해서는 안 됩니다.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. 구독 및 결제</h2>
+          <ul>
+            <li>Pro 플랜은 모드별로 독립 제공됩니다: 둘러앉기 Pro, 회의 Pro, 강의 Pro, 강의 Pro Plus.</li>
+            <li>모든 결제는 Apple App Store 또는 Google Play를 통해 처리됩니다. 당사는 카드 정보를 직접 취급하지 않습니다.</li>
+            <li>구독은 갱신일 최소 24시간 전에 취소하지 않으면 자동으로 갱신됩니다. App Store 또는 Google Play 계정 설정에서 관리·취소할 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>5. 환불 정책</h2>
+          <p>환불은 Apple App Store 또는 Google Play 정책에 따릅니다. 환불 요청은 해당 스토어에 직접 문의해주세요. 당사는 환불을 직접 처리하지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>6. 금지 행위</h2>
+          <p>다음 행위를 하지 않는 데 동의합니다.</p>
+          <ul>
+            <li>불법적인 목적으로 서비스 이용</li>
+            <li>모든 참가자의 동의 없이 방 내용을 녹화하거나 재배포하는 행위</li>
+            <li>보안 조치 침해 또는 이용 제한 우회 시도</li>
+            <li>다른 참가자를 괴롭히거나 학대하거나 해치는 행위</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. 통역 정확성 면책</h2>
+          <p>WokyToky Casual은 자동 음성 인식 및 기계 번역을 사용합니다. 통역 내용의 정확성·완전성·적시성을 보장하지 않습니다. 법률적·의학적으로 구속력 있는 의사소통에 자동 통역만을 의존하지 마세요.</p>
+        </div>
+
+        <div class="section"><h2>8. 책임의 제한</h2>
+          <p>WokyToky Casual은 어떠한 보증도 없이 "있는 그대로" 제공됩니다. 당사는 서비스 이용으로 인해 발생하는 간접적·부수적·결과적 손해에 대해 책임지지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>9. 해지</h2>
+          <p>이용자가 본 약관을 위반하는 경우 당사는 서비스 접근을 정지하거나 해지할 권리가 있습니다. 이용자는 언제든지 서비스 이용을 중단할 수 있습니다.</p>
+        </div>
+
+        <div class="section"><h2>10. 약관의 변경</h2>
+          <p>당사는 본 약관을 수시로 업데이트할 수 있습니다. 중요한 변경 사항은 앱 또는 본 페이지를 통해 공지합니다. 변경 후에도 서비스를 계속 이용하면 새로운 약관에 동의한 것으로 간주됩니다.</p>
+        </div>
+
+        <div class="section"><h2>11. 준거법</h2>
+          <p>본 약관은 대한민국 법률에 따릅니다. 모든 분쟁은 대한민국 법원에서 해결됩니다.</p>
+        </div>
+
+        <div class="section"><h2>12. 문의</h2>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">본 약관에 관한 문의는 위 연락처로 주세요.</p></div>
+        </div>`
+    },
+
+    ja: {
+      privacy: `
+        <div class="section"><h2>プライバシーポリシー</h2><p>WokyToky Casual（以下「当社」）は、アカウント不要で使えるリアルタイム通訳サービスです。本プライバシーポリシーは、当社モバイルアプリのご利用時に処理する情報を説明します。</p></div>
+
+        <div class="section"><h2>1. 収集する情報</h2>
+          <p>WokyToky Casual はアカウントなしで使用します。以下の情報を処理します。</p>
+          <h3>匿名識別子</h3>
+          <p>アプリ利用時に匿名識別子（UUID）が自動生成されます。氏名・メール・電話番号とは紐付けられず、個人を特定しません。</p>
+          <h3>ニックネーム（表示名）</h3>
+          <p>ルームで表示するニックネームを入力します。本名である必要はありません。</p>
+          <h3>発話内容（字幕）</h3>
+          <p>通訳のために話した内容がテキスト化され、ルーム参加者に字幕として届けられ、記録として保存されます。</p>
+          <h3>任意の参加者情報</h3>
+          <p>主催者が「参加者情報の収集」を有効にしたルームに限り、参加者が本名・所属・国を入力できます。該当ルームのみで収集します。</p>
+          <h3>収集しない情報</h3>
+          <ul>
+            <li>メールアドレス・電話番号・アカウントパスワード</li>
+            <li>位置情報（GPS）</li>
+            <li>写真・動画</li>
+            <li>音声録音ファイル</li>
+            <li>端末フィンガープリント・広告識別子</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>2. 音声データ</h2>
+          <p>音声は保存しません。話した内容はリアルタイム音声認識のためにテキスト化された後、直ちに破棄されます。音声の原本はサーバーにも端末にも保存されず、変換されたテキスト（字幕）のみが記録として残ります。</p>
+        </div>
+
+        <div class="section"><h2>3. 利用目的</h2>
+          <p>収集した情報は以下の目的にのみ使用します。</p>
+          <ul>
+            <li>リアルタイム音声認識および通訳（翻訳）の提供</li>
+            <li>会話・会議・講義の記録の作成・保存・閲覧</li>
+            <li>参加者リストの提供（任意情報収集ルームのみ）</li>
+            <li>サブスクリプション状態の確認とサービス定員の管理</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. 第三者サービス</h2>
+          <p>サービス提供のため、以下の外部サービスに情報が送信されます。</p>
+          <ul>
+            <li><strong>Google Cloud Speech-to-Text</strong> — 音声認識のため音声が送信されます（保存されません）。当社サーバー（Edge Function）を経由し、アプリにAPIキーは含まれません。</li>
+            <li><strong>Google Cloud Translation</strong> — 字幕翻訳のためテキストが送信されます。</li>
+            <li><strong>Supabase（米国）</strong> — データ保存および匿名認証。HTTPSで送信され、アクセス制御（RLS）が適用されます。</li>
+            <li><strong>Apple App Store / Google Play</strong> — サブスクリプション決済処理。決済情報はApple/Googleが処理し、当社はカード情報を収集しません。</li>
+          </ul>
+          <p style="margin-top:12px;">Googleサービスに送信された音声・テキストは認識・翻訳結果の返却のみに使用され、当社が保管することはありません。</p>
+        </div>
+
+        <div class="section"><h2>5. データ保存期間</h2>
+          <ul>
+            <li><strong>無料ルーム：</strong>記録はルーム終了後7日間保管され、その後自動的に完全削除されます。</li>
+            <li><strong>Proルーム：</strong>Proサブスクリプションで作成したルームの記録は期間制限なく保管されます。サブスクリプション終了後も既存の記録は維持されます。</li>
+            <li><strong>削除：</strong>主催者はいつでも記録を削除できます。削除すると参加者は当該記録を閲覧できなくなります。</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>6. 任意の個人情報収集</h2>
+          <p>主催者は「参加者情報の収集」を有効にできます。その場合のみ参加者に本名・所属・国の入力を求めます。この情報は当該ルームの参加者リスト作成のみに使用され、ルーム記録と同じ保存ポリシー（無料：7日 / Pro：無制限）が適用されます。機能が無効のルームでは収集しません。</p>
+        </div>
+
+        <div class="section"><h2>7. データセキュリティ</h2>
+          <p>すべての通信はHTTPSで暗号化され、データベースは行レベルセキュリティ（RLS）でアクセスが制限されます。外部APIキーはサーバー（Edge Function）に隔離され、アプリに露出しません。</p>
+        </div>
+
+        <div class="section"><h2>8. 児童のプライバシー</h2>
+          <p>本サービスは13歳未満の方を対象としていません。13歳未満と判明した場合は関連情報を削除します。</p>
+        </div>
+
+        <div class="section"><h2>9. お客様の権利</h2>
+          <p>利用者は自身の記録について以下の権利を持ちます。</p>
+          <ul>
+            <li><strong>閲覧：</strong>アプリの「マイ記録」で参加したルームの記録を確認できます。</li>
+            <li><strong>削除：</strong>主催者はルーム記録を直接削除できます。無料ルームの記録は7日後に自動削除されます。</li>
+            <li><strong>お問い合わせ：</strong>プライバシーに関するご質問は下記の連絡先へ。</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>10. ポリシーの変更・お問い合わせ</h2>
+          <p>本ポリシーは変更される場合があります。重要な変更はアプリまたは本ページでお知らせします。変更後もご利用を継続された場合、変更後のポリシーに同意したものとみなします。</p>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">プライバシーに関するお問い合わせは上記までご連絡ください。72時間以内に回答いたします。</p></div>
+        </div>`,
+
+      terms: `
+        <div class="section"><h2>利用規約</h2><p>WokyToky Casual をダウンロードまたはご利用いただくことで、本利用規約に同意したものとみなされます。アプリをご利用になる前に、よくお読みください。</p></div>
+
+        <div class="section"><h2>1. 規約への同意</h2>
+          <p>WokyToky Casual にアクセスまたはご利用いただくことで、本規約に拘束されることに同意します。同意されない場合は、アプリをご利用にならないでください。</p>
+        </div>
+
+        <div class="section"><h2>2. サービスの説明</h2>
+          <p>WokyToky Casual は、以下を提供するリアルタイム通訳・記録サービスです。</p>
+          <ul>
+            <li>会話・会議・講義中のリアルタイム音声認識および多言語通訳（字幕）</li>
+            <li>セッション終了後に閲覧可能なルーム記録</li>
+            <li>拡張機能および無制限の記録保管のためのサブスクリプションプラン</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>3. 匿名アカウント</h2>
+          <ul>
+            <li>WokyToky Casual はメールアドレスやパスワードを必要とせず、匿名識別子が自動生成されます。</li>
+            <li>端末へのアクセス管理はお客様の責任です。匿名識別子が失われた場合、セッションを復元できません。</li>
+            <li>他のユーザーのセッションに無断でアクセスしてはなりません。</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. サブスクリプションと請求</h2>
+          <ul>
+            <li>Proプランはモードごとに独立して提供されます：グループPro、ミーティングPro、レクチャーPro、レクチャーPro Plus。</li>
+            <li>すべての決済はApple App StoreまたはGoogle Playを通じて処理されます。当社はカード情報を直接取り扱いません。</li>
+            <li>サブスクリプションは更新日の少なくとも24時間前にキャンセルしない限り自動更新されます。App StoreまたはGoogle Playのアカウント設定から管理・キャンセルできます。</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>5. 返金ポリシー</h2>
+          <p>返金はApple App StoreまたはGoogle Playのポリシーに準拠します。返金はそれぞれのストアに直接お問い合わせください。当社は返金を直接処理しません。</p>
+        </div>
+
+        <div class="section"><h2>6. 禁止事項</h2>
+          <p>以下の行為を行わないことに同意します。</p>
+          <ul>
+            <li>違法な目的でのサービス利用</li>
+            <li>すべての参加者の同意なくルーム内容を録画または再配布する行為</li>
+            <li>セキュリティ対策を侵害し、または利用制限を回避しようとする行為</li>
+            <li>他の参加者への嫌がらせ・虐待・加害</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. 通訳精度に関する免責</h2>
+          <p>WokyToky Casual は自動音声認識および機械翻訳を使用しています。通訳内容の正確性・完全性・適時性を保証しません。法律上または医療上の拘束力ある連絡に自動通訳のみを依拠しないでください。</p>
+        </div>
+
+        <div class="section"><h2>8. 責任の制限</h2>
+          <p>WokyToky Casual はいかなる保証もなく「現状のまま」提供されます。当社は、サービスの利用によって生じた間接的・付随的・結果的損害について責任を負いません。</p>
+        </div>
+
+        <div class="section"><h2>9. 解約</h2>
+          <p>お客様が本規約に違反した場合、当社はサービスへのアクセスを停止または解約する権利を有します。お客様はいつでもサービスの利用を停止できます。</p>
+        </div>
+
+        <div class="section"><h2>10. 規約の変更</h2>
+          <p>当社は本規約を随時更新することがあります。重要な変更はアプリまたは本ページでお知らせします。変更後もご利用を継続された場合、新しい規約に同意したものとみなされます。</p>
+        </div>
+
+        <div class="section"><h2>11. 準拠法</h2>
+          <p>本規約は大韓民国の法律に準拠します。あらゆる紛争は大韓民国の裁判所で解決されます。</p>
+        </div>
+
+        <div class="section"><h2>12. お問い合わせ</h2>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#085041;">本規約に関するお問い合わせは上記までご連絡ください。</p></div>
+        </div>`
+    }
+  };
+
+  var curLang = 'en';
+  var curPage = 'privacy';
+
+  function render() {
+    document.documentElement.lang = curLang;
+    document.getElementById('navPrivacy').textContent = navLabels[curLang].privacy;
+    document.getElementById('navTerms').textContent = navLabels[curLang].terms;
+    document.getElementById('navPrivacy').className = (curPage === 'privacy') ? 'active' : '';
+    document.getElementById('navTerms').className = (curPage === 'terms') ? 'active' : '';
+    var langBtns = document.querySelectorAll('.langbar button');
+    for (var i = 0; i < langBtns.length; i++) {
+      langBtns[i].className = (langBtns[i].getAttribute('data-lang') === curLang) ? 'active' : '';
+    }
+    document.getElementById('content').innerHTML =
+      '<p class="updated">' + updatedLabel[curLang] + '</p>' + C[curLang][curPage];
+  }
+  function setLang(l) { curLang = l; render(); }
+  function setPage(p) { curPage = p; render(); }
+  render();
+</script>
+
+</body>
+</html>
