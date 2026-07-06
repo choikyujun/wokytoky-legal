@@ -547,6 +547,7 @@
   }
   function setLang(l) { curLang = l; render(); }
   function setPage(p) { curPage = p; render(); }
+  if (location.hash === '#terms') curPage = 'terms';
   render();
 </script>
 
