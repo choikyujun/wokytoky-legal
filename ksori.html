@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ksori - Legal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f7f6; color: #1a1a18; }
+    header { background: #176B54; padding: 24px 20px; text-align: center; }
+    header h1 { color: #E5F1EC; font-size: 28px; letter-spacing: 2px; }
+    header p { color: #9fd8c5; font-size: 12px; margin-top: 4px; letter-spacing: 3px; }
+    .langbar { background: #125a47; display: flex; justify-content: center; gap: 8px; padding: 10px; }
+    .langbar button { background: transparent; border: 1px solid #3a7d67; color: #9fd8c5; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .langbar button.active { background: #E5F1EC; color: #176B54; border-color: #E5F1EC; }
+    nav { background: #fff; border-bottom: 1px solid #e0ded8; display: flex; justify-content: center; gap: 0; }
+    nav a { padding: 14px 32px; text-decoration: none; color: #888780; font-size: 14px; font-weight: 600; border-bottom: 2px solid transparent; transition: all 0.2s; cursor: pointer; }
+    nav a.active, nav a:hover { color: #176B54; border-bottom-color: #176B54; }
+    .container { max-width: 800px; margin: 0 auto; padding: 32px 20px; }
+    .section { background: #fff; border-radius: 12px; padding: 28px; margin-bottom: 16px; }
+    h2 { font-size: 20px; color: #176B54; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e0ded8; }
+    h3 { font-size: 15px; color: #1a1a18; margin: 16px 0 8px; }
+    p, li { font-size: 14px; line-height: 1.8; color: #444441; }
+    ul { padding-left: 20px; margin: 8px 0; }
+    li { margin-bottom: 4px; }
+    .updated { font-size: 12px; color: #888780; margin-bottom: 20px; }
+    .contact { background: #E5F1EC; border-radius: 10px; padding: 16px; margin-top: 20px; }
+    .contact p { color: #176B54; font-weight: 600; }
+    footer { text-align: center; padding: 24px; color: #888780; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Ksori</h1>
+  <p>KOREAN CONVERSATION PRACTICE</p>
+</header>
+
+<div class="langbar">
+  <button data-lang="en" class="active" onclick="setLang('en')">EN</button>
+  <button data-lang="ko" onclick="setLang('ko')">한국어</button>
+  <button data-lang="ja" onclick="setLang('ja')">日本語</button>
+</div>
+
+<nav>
+  <a id="navPrivacy" class="active" onclick="setPage('privacy')"></a>
+  <a id="navTerms" onclick="setPage('terms')"></a>
+</nav>
+
+<div class="container" id="content"></div>
+
+<footer>
+  <p>© 2026 Ksori. All rights reserved.</p>
+</footer>
+
+<script>
+  var navLabels = {
+    en: { privacy: 'Privacy Policy', terms: 'Terms of Service' },
+    ko: { privacy: '개인정보처리방침', terms: '이용약관' },
+    ja: { privacy: 'プライバシーポリシー', terms: '利用規約' }
+  };
+  var updatedLabel = {
+    en: 'Effective date: July 8, 2026',
+    ko: '시행일: 2026년 7월 8일',
+    ja: '施行日: 2026年7月8日'
+  };
+
+  var C = {
+    en: {
+      privacy: `
+        <div class="section"><h2>Privacy Policy</h2><p>Ksori ("we", "our", or "us") is a mobile app for practicing spoken Korean. This Privacy Policy explains what information we process when you use the app.</p></div>
+
+        <div class="section"><h2>1. Information We Collect</h2>
+          <h3>Account</h3>
+          <p>You can sign in with email, Google, or Apple, or continue as a guest (anonymous). We process your email address (for email/Google/Apple sign-in) and an account identifier (UUID). Guest mode uses an anonymous identifier only and has no email.</p>
+          <h3>Profile</h3>
+          <p>Optional information you set, such as your Korean name, honorific preference, learning level, interests, and daily goal.</p>
+          <h3>Learning Data</h3>
+          <p>Your conversation text, pronunciation scores, corrections, recurring weaknesses, review items, saved expressions, and streak records.</p>
+          <h3>We Do NOT Collect</h3>
+          <ul>
+            <li>Photos or videos</li>
+            <li>Contacts or phone number</li>
+            <li>Advertising identifiers or device fingerprints</li>
+            <li>Audio recording files (see Section 2)</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>2. Voice Data</h2>
+          <p>For speech recognition and pronunciation scoring, your audio is sent to Microsoft Azure Speech Services and processed in real time. We do NOT store the audio recordings on our servers or your device. Only the recognized text and pronunciation scores are saved to your learning history.</p>
+        </div>
+
+        <div class="section"><h2>3. Conversation Content</h2>
+          <p>To generate AI responses and corrections, your recognized speech together with recent conversation history (up to 40 previous messages) and your learning settings are sent to OpenAI. The AI's responses, corrections, and detected expressions are stored in your account so you can review them.</p>
+        </div>
+
+        <div class="section"><h2>4. Location</h2>
+          <p>If you use the "where am I now" feature, your GPS coordinates are sent to Kakao Maps to look up a Korean address. Neither the coordinates nor the resulting address is stored; they are used only momentarily to show you the address.</p>
+        </div>
+
+        <div class="section"><h2>5. Payment</h2>
+          <p>Subscriptions are processed through Google Play. The app never receives your card or payment details; it only receives a purchase token, which is verified with Google and stored to manage your premium access.</p>
+        </div>
+
+        <div class="section"><h2>6. Third-Party Services</h2>
+          <p>To provide the service, information is transmitted to the following external services:</p>
+          <ul>
+            <li><strong>Microsoft Azure Speech</strong> — Audio is sent for speech recognition and pronunciation scoring (not stored by us).</li>
+            <li><strong>OpenAI</strong> — Recognized text and recent conversation history are sent to generate AI responses and corrections.</li>
+            <li><strong>Kakao Maps</strong> — GPS coordinates are sent for reverse geocoding (not stored).</li>
+            <li><strong>Google Play</strong> — Subscription verification. Payment details are handled by Google; we do not collect card information.</li>
+            <li><strong>Supabase</strong> — Data storage, authentication, and server functions, over HTTPS with access control (RLS). API keys are isolated on the server and never in the app.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. International Data Transfer</h2>
+          <p>To provide the service, some data is transferred to and processed on servers located outside Korea, including Supabase and OpenAI (United States) and Microsoft Azure (overseas regions). By using the service, you consent to this transfer.</p>
+        </div>
+
+        <div class="section"><h2>8. How We Use Your Information</h2>
+          <ul>
+            <li>Provide speech recognition, AI conversation, pronunciation scoring, and review</li>
+            <li>Store and display your learning history</li>
+            <li>Personalize greetings and corrections (e.g., using your Korean name)</li>
+            <li>Verify subscription status and manage usage limits</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>9. Data Retention</h2>
+          <p>Your account and learning data are kept until you delete your account. When you delete your account, all associated data is permanently removed (see Section 12).</p>
+        </div>
+
+        <div class="section"><h2>10. Advertising &amp; Tracking</h2>
+          <p>Ksori contains no advertising SDKs and no third-party analytics or tracking SDKs. We do not track you across other apps or websites.</p>
+        </div>
+
+        <div class="section"><h2>11. Data Security</h2>
+          <p>All communication is encrypted over HTTPS, and the database is access-restricted with row-level security (RLS). External API keys are isolated on our server (Edge Functions) and are never exposed in the app.</p>
+        </div>
+
+        <div class="section"><h2>12. Your Rights &amp; Account Deletion</h2>
+          <ul>
+            <li><strong>Access:</strong> View your learning history in the app.</li>
+            <li><strong>Deletion (in app):</strong> Settings &gt; Delete account. This permanently deletes your account and all associated data and cannot be undone.</li>
+            <li><strong>Deletion (without the app):</strong> You may request deletion by email at 100bear@daum.net or via our <a href="ksori-delete.html" style="color:#176B54;font-weight:600;">account deletion request page</a>.</li>
+            <li><strong>Subscription:</strong> Your Google Play subscription is managed by Google and is not cancelled automatically when you delete your account. Please cancel it in Google Play separately.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>13. Children's Privacy</h2>
+          <p>This service is not intended for children under 13. We delete relevant information if we learn a user is under 13.</p>
+        </div>
+
+        <div class="section"><h2>14. Changes to This Policy</h2>
+          <p>This policy may change. Significant changes will be announced via the app or this page. Continued use of the service after changes constitutes acceptance of the updated policy.</p>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#176B54;">For privacy-related inquiries, please contact us and we will respond within 72 hours.</p></div>
+        </div>`,
+
+      terms: `
+        <div class="section"><h2>Terms of Service</h2><p>By downloading or using Ksori, you agree to these Terms of Service. Please read them carefully before using the application.</p></div>
+
+        <div class="section"><h2>1. Acceptance of Terms</h2>
+          <p>By accessing or using Ksori, you agree to be bound by these Terms. If you do not agree, please do not use the application.</p>
+        </div>
+
+        <div class="section"><h2>2. Description of Service</h2>
+          <p>Ksori is a Korean-language speaking-practice service that provides:</p>
+          <ul>
+            <li>Free conversation practice with AI characters</li>
+            <li>Pronunciation scoring for read-aloud practice</li>
+            <li>Review of expressions and corrections from your conversations</li>
+            <li>Situation scripts for real-life scenarios</li>
+            <li>Free and premium (subscription) tiers</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>3. Accounts</h2>
+          <ul>
+            <li>You can sign in with email, Google, or Apple, or continue as a guest (anonymous).</li>
+            <li>You are responsible for keeping your credentials and device access secure.</li>
+            <li>Guest (anonymous) sessions cannot be recovered if lost.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. Subscriptions &amp; Billing</h2>
+          <ul>
+            <li>Premium is offered as monthly and yearly subscriptions through Google Play.</li>
+            <li>All payments are processed by Google Play. We do not handle card information directly.</li>
+            <li>Subscriptions renew automatically unless cancelled at least 24 hours before the renewal date through your Google Play account settings.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>5. Refund Policy</h2>
+          <p>Refunds are governed by Google Play policy. Contact Google Play for refund requests; we do not process refunds directly.</p>
+        </div>
+
+        <div class="section"><h2>6. Acceptable Use</h2>
+          <p>You agree NOT to:</p>
+          <ul>
+            <li>Use the service for any illegal purpose</li>
+            <li>Attempt to breach security measures or circumvent usage limits</li>
+            <li>Abuse, harass, or harm others, or submit harmful content</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. AI Content Accuracy</h2>
+          <p>Ksori uses automated speech recognition and AI language models. We do not guarantee the accuracy, completeness, or appropriateness of AI responses, corrections, or pronunciation scores. Please use them as a learning aid only.</p>
+        </div>
+
+        <div class="section"><h2>8. Limitation of Liability</h2>
+          <p>Ksori is provided "as is" without warranties of any kind. We are not liable for any indirect, incidental, or consequential damages arising from your use of the service.</p>
+        </div>
+
+        <div class="section"><h2>9. Termination &amp; Account Deletion</h2>
+          <p>We reserve the right to suspend or terminate service access if you violate these Terms. You may delete your account at any time in Settings &gt; Delete account, or request deletion via our account deletion request page.</p>
+        </div>
+
+        <div class="section"><h2>10. Changes to Terms</h2>
+          <p>We may update these Terms from time to time. Significant changes will be announced via the app or this page. Continued use after changes constitutes acceptance of the new Terms.</p>
+        </div>
+
+        <div class="section"><h2>11. Governing Law</h2>
+          <p>These Terms are governed by the laws of the Republic of Korea. Any disputes shall be resolved in the courts of Korea.</p>
+        </div>
+
+        <div class="section"><h2>12. Contact Us</h2>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#176B54;">For questions about these Terms, please contact us.</p></div>
+        </div>`
+    },
+
+    ko: {
+      privacy: `
+        <div class="section"><h2>개인정보처리방침</h2><p>Ksori(이하 "당사")는 한국어 말하기 연습을 위한 모바일 애플리케이션입니다. 본 개인정보처리방침은 앱 이용 시 당사가 처리하는 정보를 설명합니다.</p></div>
+
+        <div class="section"><h2>1. 수집하는 정보</h2>
+          <h3>계정</h3>
+          <p>이메일, 구글, 애플로 로그인하거나 게스트(익명)로 이용할 수 있습니다. 당사는 이메일 주소(이메일·구글·애플 로그인 시)와 계정 식별자(UUID)를 처리합니다. 게스트 모드는 익명 식별자만 사용하며 이메일이 없습니다.</p>
+          <h3>프로필</h3>
+          <p>한국어 이름, 존댓말 호칭, 학습 레벨, 관심사, 하루 목표 등 이용자가 직접 설정한 선택 정보입니다.</p>
+          <h3>학습 데이터</h3>
+          <p>대화 텍스트, 발음 점수, 교정 내용, 반복되는 약점, 복습 항목, 저장한 표현, 연속 기록 등입니다.</p>
+          <h3>수집하지 않는 정보</h3>
+          <ul>
+            <li>사진·동영상</li>
+            <li>연락처·전화번호</li>
+            <li>광고 식별자·기기 지문</li>
+            <li>오디오 녹음 파일(제2조 참고)</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>2. 음성 데이터</h2>
+          <p>음성 인식과 발음 평가를 위해 오디오가 Microsoft Azure Speech Services로 전송되어 실시간으로 처리됩니다. 당사는 오디오 원본을 서버나 기기에 저장하지 않습니다. 인식된 텍스트와 발음 점수만 학습 기록으로 저장됩니다.</p>
+        </div>
+
+        <div class="section"><h2>3. 대화 내용</h2>
+          <p>AI 응답과 교정을 생성하기 위해, 인식된 발화와 최근 대화 이력(직전 최대 40개 메시지), 학습 설정이 OpenAI로 전송됩니다. AI의 응답·교정·추출된 표현은 이용자가 복습할 수 있도록 계정에 저장됩니다.</p>
+        </div>
+
+        <div class="section"><h2>4. 위치</h2>
+          <p>'내 위치 확인' 기능을 사용하면 GPS 좌표가 한국어 주소 조회를 위해 카카오맵으로 전송됩니다. 좌표와 조회된 주소는 모두 저장되지 않으며, 주소를 보여주기 위해 일시적으로만 사용됩니다.</p>
+        </div>
+
+        <div class="section"><h2>5. 결제</h2>
+          <p>구독 결제는 Google Play를 통해 처리됩니다. 앱은 카드 등 결제 수단 정보를 절대 받지 않으며, 구매 토큰(purchase token)만 수신합니다. 이 토큰은 Google로 검증되어 프리미엄 이용 관리를 위해 저장됩니다.</p>
+        </div>
+
+        <div class="section"><h2>6. 제3자 서비스</h2>
+          <p>서비스 제공을 위해 다음 외부 서비스에 정보가 전송됩니다.</p>
+          <ul>
+            <li><strong>Microsoft Azure Speech</strong> — 음성 인식·발음 평가를 위해 오디오가 전송됩니다(당사 미저장).</li>
+            <li><strong>OpenAI</strong> — AI 응답·교정 생성을 위해 인식된 텍스트와 최근 대화 이력이 전송됩니다.</li>
+            <li><strong>카카오맵(Kakao Maps)</strong> — 역지오코딩을 위해 GPS 좌표가 전송됩니다(미저장).</li>
+            <li><strong>Google Play</strong> — 구독 검증. 결제 수단 정보는 Google이 처리하며 당사는 카드 정보를 수집하지 않습니다.</li>
+            <li><strong>Supabase</strong> — 데이터 저장·인증·서버 함수. HTTPS로 전송되며 접근 제어(RLS)가 적용됩니다. API 키는 서버에 격리되어 앱에 노출되지 않습니다.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. 개인정보 국외 이전</h2>
+          <p>서비스 제공을 위해 일부 데이터는 대한민국 외부 서버로 이전·처리됩니다. 여기에는 Supabase·OpenAI(미국)와 Microsoft Azure(해외 리전)가 포함됩니다. 서비스를 이용함으로써 이러한 국외 이전에 동의하는 것으로 간주됩니다.</p>
+        </div>
+
+        <div class="section"><h2>8. 정보 이용 목적</h2>
+          <ul>
+            <li>음성 인식·AI 대화·발음 평가·복습 제공</li>
+            <li>학습 기록 저장 및 열람</li>
+            <li>호명·교정 개인화(예: 한국어 이름 사용)</li>
+            <li>구독 상태 확인 및 이용 한도 관리</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>9. 데이터 보존</h2>
+          <p>계정 및 학습 데이터는 이용자가 계정을 삭제할 때까지 보관됩니다. 계정을 삭제하면 관련된 모든 데이터가 영구적으로 삭제됩니다(제12조 참고).</p>
+        </div>
+
+        <div class="section"><h2>10. 광고 및 추적</h2>
+          <p>Ksori에는 광고 SDK가 없으며, 제3자 분석·추적 SDK도 포함되어 있지 않습니다. 당사는 다른 앱이나 웹사이트에서 이용자를 추적하지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>11. 데이터 보안</h2>
+          <p>모든 통신은 HTTPS로 암호화되며, 데이터베이스는 행 수준 보안(RLS)으로 접근이 제한됩니다. 외부 API 키는 서버(Edge Function)에 격리되어 앱에 노출되지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>12. 이용자의 권리 및 계정 삭제</h2>
+          <ul>
+            <li><strong>열람:</strong> 앱에서 학습 기록을 확인할 수 있습니다.</li>
+            <li><strong>삭제(앱 내):</strong> 설정 &gt; 계정 삭제. 계정과 관련된 모든 데이터가 영구 삭제되며 되돌릴 수 없습니다.</li>
+            <li><strong>삭제(앱 없이):</strong> 100bear@daum.net으로 이메일 요청하거나 <a href="ksori-delete.html" style="color:#176B54;font-weight:600;">계정 삭제 요청 페이지</a>를 이용할 수 있습니다.</li>
+            <li><strong>구독:</strong> Google Play 구독은 Google이 관리하며 계정 삭제 시 자동으로 취소되지 않습니다. Google Play에서 별도로 취소해주세요.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>13. 아동의 개인정보</h2>
+          <p>본 서비스는 만 13세 미만 아동을 대상으로 하지 않으며, 이용자가 만 13세 미만임을 알게 된 경우 관련 정보를 삭제합니다.</p>
+        </div>
+
+        <div class="section"><h2>14. 방침 변경 및 문의</h2>
+          <p>본 방침은 변경될 수 있으며, 중요한 변경 시 앱 또는 본 페이지를 통해 공지합니다. 변경 후 서비스를 계속 이용하면 변경된 방침에 동의한 것으로 간주됩니다.</p>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#176B54;">개인정보 관련 문의는 위 연락처로 주시면 72시간 이내에 답변드립니다.</p></div>
+        </div>`,
+
+      terms: `
+        <div class="section"><h2>이용약관</h2><p>Ksori를 다운로드하거나 이용함으로써 본 이용약관에 동의하게 됩니다. 애플리케이션을 사용하기 전에 약관을 주의 깊게 읽어주세요.</p></div>
+
+        <div class="section"><h2>1. 약관의 동의</h2>
+          <p>Ksori에 접속하거나 이를 이용함으로써 본 약관에 구속되는 데 동의합니다. 본 약관에 동의하지 않으시면 애플리케이션을 이용하지 말아주세요.</p>
+        </div>
+
+        <div class="section"><h2>2. 서비스 설명</h2>
+          <p>Ksori는 다음을 제공하는 한국어 말하기 연습 서비스입니다.</p>
+          <ul>
+            <li>AI 캐릭터와의 자유 대화 연습</li>
+            <li>따라 읽기에 대한 발음 평가</li>
+            <li>대화에서 나온 표현·교정 복습</li>
+            <li>실생활 상황 스크립트</li>
+            <li>무료 및 프리미엄(구독) 등급</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>3. 계정</h2>
+          <ul>
+            <li>이메일, 구글, 애플로 로그인하거나 게스트(익명)로 이용할 수 있습니다.</li>
+            <li>자격 증명과 기기 접근 관리는 이용자의 책임입니다.</li>
+            <li>게스트(익명) 세션은 분실 시 복구할 수 없습니다.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. 구독 및 결제</h2>
+          <ul>
+            <li>프리미엄은 Google Play를 통해 월간·연간 구독으로 제공됩니다.</li>
+            <li>모든 결제는 Google Play를 통해 처리됩니다. 당사는 카드 정보를 직접 취급하지 않습니다.</li>
+            <li>구독은 갱신일 최소 24시간 전에 취소하지 않으면 자동으로 갱신됩니다. Google Play 계정 설정에서 관리·취소할 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>5. 환불 정책</h2>
+          <p>환불은 Google Play 정책에 따릅니다. 환불 요청은 Google Play에 직접 문의해주세요. 당사는 환불을 직접 처리하지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>6. 금지 행위</h2>
+          <p>다음 행위를 하지 않는 데 동의합니다.</p>
+          <ul>
+            <li>불법적인 목적으로 서비스 이용</li>
+            <li>보안 조치 침해 또는 이용 제한 우회 시도</li>
+            <li>타인을 학대·괴롭힘·가해하거나 유해한 콘텐츠를 제출하는 행위</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. AI 콘텐츠 정확성 면책</h2>
+          <p>Ksori는 자동 음성 인식과 AI 언어 모델을 사용합니다. AI 응답·교정·발음 점수의 정확성·완전성·적절성을 보장하지 않습니다. 학습 보조 도구로만 활용해주세요.</p>
+        </div>
+
+        <div class="section"><h2>8. 책임의 제한</h2>
+          <p>Ksori는 어떠한 보증도 없이 "있는 그대로" 제공됩니다. 당사는 서비스 이용으로 인해 발생하는 간접적·부수적·결과적 손해에 대해 책임지지 않습니다.</p>
+        </div>
+
+        <div class="section"><h2>9. 해지 및 계정 삭제</h2>
+          <p>이용자가 본 약관을 위반하는 경우 당사는 서비스 접근을 정지하거나 해지할 권리가 있습니다. 이용자는 언제든지 설정 &gt; 계정 삭제에서 계정을 삭제하거나, 계정 삭제 요청 페이지를 통해 삭제를 요청할 수 있습니다.</p>
+        </div>
+
+        <div class="section"><h2>10. 약관의 변경</h2>
+          <p>당사는 본 약관을 수시로 업데이트할 수 있습니다. 중요한 변경 사항은 앱 또는 본 페이지를 통해 공지합니다. 변경 후에도 서비스를 계속 이용하면 새로운 약관에 동의한 것으로 간주됩니다.</p>
+        </div>
+
+        <div class="section"><h2>11. 준거법</h2>
+          <p>본 약관은 대한민국 법률에 따릅니다. 모든 분쟁은 대한민국 법원에서 해결됩니다.</p>
+        </div>
+
+        <div class="section"><h2>12. 문의</h2>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#176B54;">본 약관에 관한 문의는 위 연락처로 주세요.</p></div>
+        </div>`
+    },
+
+    ja: {
+      privacy: `
+        <div class="section"><h2>プライバシーポリシー</h2><p>Ksori（以下「当社」）は、韓国語スピーキング練習のためのモバイルアプリです。本プライバシーポリシーは、アプリのご利用時に当社が処理する情報を説明します。</p></div>
+
+        <div class="section"><h2>1. 収集する情報</h2>
+          <h3>アカウント</h3>
+          <p>メール、Google、Appleでログインするか、ゲスト（匿名）としてご利用いただけます。当社はメールアドレス（メール・Google・Appleログイン時）とアカウント識別子（UUID）を処理します。ゲストモードは匿名識別子のみを使用し、メールはありません。</p>
+          <h3>プロフィール</h3>
+          <p>韓国語の名前、敬称の設定、学習レベル、興味、1日の目標など、利用者が設定する任意の情報です。</p>
+          <h3>学習データ</h3>
+          <p>会話テキスト、発音スコア、添削内容、繰り返し出る弱点、復習項目、保存した表現、連続記録などです。</p>
+          <h3>収集しない情報</h3>
+          <ul>
+            <li>写真・動画</li>
+            <li>連絡先・電話番号</li>
+            <li>広告識別子・端末フィンガープリント</li>
+            <li>音声録音ファイル（第2条参照）</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>2. 音声データ</h2>
+          <p>音声認識と発音評価のため、音声はMicrosoft Azure Speech Servicesに送信され、リアルタイムで処理されます。当社は音声の原本をサーバーにも端末にも保存しません。認識されたテキストと発音スコアのみが学習履歴として保存されます。</p>
+        </div>
+
+        <div class="section"><h2>3. 会話内容</h2>
+          <p>AIの応答と添削を生成するため、認識された発話に加え、最近の会話履歴（直前の最大40件のメッセージ）と学習設定がOpenAIに送信されます。AIの応答・添削・抽出された表現は、復習できるようにアカウントに保存されます。</p>
+        </div>
+
+        <div class="section"><h2>4. 位置情報</h2>
+          <p>「現在地の確認」機能を使用すると、韓国語の住所を調べるためにGPS座標がKakao Mapに送信されます。座標も取得した住所も保存されず、住所を表示するために一時的にのみ使用されます。</p>
+        </div>
+
+        <div class="section"><h2>5. 決済</h2>
+          <p>サブスクリプションの決済はGoogle Playを通じて処理されます。アプリはカードなどの決済情報を一切受け取らず、購入トークン（purchase token）のみを受信します。このトークンはGoogleで検証され、プレミアム利用の管理のために保存されます。</p>
+        </div>
+
+        <div class="section"><h2>6. 第三者サービス</h2>
+          <p>サービス提供のため、以下の外部サービスに情報が送信されます。</p>
+          <ul>
+            <li><strong>Microsoft Azure Speech</strong> — 音声認識・発音評価のため音声が送信されます（当社は保存しません）。</li>
+            <li><strong>OpenAI</strong> — AI応答・添削の生成のため、認識されたテキストと最近の会話履歴が送信されます。</li>
+            <li><strong>Kakao Map</strong> — 逆ジオコーディングのためGPS座標が送信されます（保存されません）。</li>
+            <li><strong>Google Play</strong> — サブスクリプション検証。決済情報はGoogleが処理し、当社はカード情報を収集しません。</li>
+            <li><strong>Supabase</strong> — データ保存・認証・サーバー関数。HTTPSで送信され、アクセス制御（RLS）が適用されます。APIキーはサーバーに隔離され、アプリに露出しません。</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. 個人情報の国外移転</h2>
+          <p>サービス提供のため、一部のデータは大韓民国外のサーバーに移転・処理されます。これにはSupabase・OpenAI（米国）およびMicrosoft Azure（海外リージョン）が含まれます。サービスをご利用いただくことで、この国外移転に同意したものとみなされます。</p>
+        </div>
+
+        <div class="section"><h2>8. 利用目的</h2>
+          <ul>
+            <li>音声認識・AI会話・発音評価・復習の提供</li>
+            <li>学習履歴の保存・閲覧</li>
+            <li>呼びかけ・添削の個人化（例：韓国語の名前の使用）</li>
+            <li>サブスクリプション状態の確認と利用制限の管理</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>9. データ保存期間</h2>
+          <p>アカウントおよび学習データは、利用者がアカウントを削除するまで保管されます。アカウントを削除すると、関連するすべてのデータが永久に削除されます（第12条参照）。</p>
+        </div>
+
+        <div class="section"><h2>10. 広告およびトラッキング</h2>
+          <p>Ksoriには広告SDKはなく、第三者の分析・トラッキングSDKも含まれていません。当社は他のアプリやウェブサイトで利用者を追跡しません。</p>
+        </div>
+
+        <div class="section"><h2>11. データセキュリティ</h2>
+          <p>すべての通信はHTTPSで暗号化され、データベースは行レベルセキュリティ（RLS）でアクセスが制限されます。外部APIキーはサーバー（Edge Function）に隔離され、アプリに露出しません。</p>
+        </div>
+
+        <div class="section"><h2>12. 利用者の権利およびアカウント削除</h2>
+          <ul>
+            <li><strong>閲覧：</strong>アプリで学習履歴を確認できます。</li>
+            <li><strong>削除（アプリ内）：</strong>設定 &gt; アカウント削除。アカウントと関連するすべてのデータが永久に削除され、復元できません。</li>
+            <li><strong>削除（アプリなし）：</strong>100bear@daum.net へメールでご請求いただくか、<a href="ksori-delete.html" style="color:#176B54;font-weight:600;">アカウント削除請求ページ</a>をご利用ください。</li>
+            <li><strong>サブスクリプション：</strong>Google PlayのサブスクリプションはGoogleが管理しており、アカウント削除時に自動でキャンセルされません。Google Playで別途キャンセルしてください。</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>13. 児童のプライバシー</h2>
+          <p>本サービスは13歳未満の方を対象としていません。13歳未満と判明した場合は関連情報を削除します。</p>
+        </div>
+
+        <div class="section"><h2>14. ポリシーの変更・お問い合わせ</h2>
+          <p>本ポリシーは変更される場合があります。重要な変更はアプリまたは本ページでお知らせします。変更後もご利用を継続された場合、変更後のポリシーに同意したものとみなします。</p>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#176B54;">プライバシーに関するお問い合わせは上記までご連絡ください。72時間以内に回答いたします。</p></div>
+        </div>`,
+
+      terms: `
+        <div class="section"><h2>利用規約</h2><p>Ksori をダウンロードまたはご利用いただくことで、本利用規約に同意したものとみなされます。アプリをご利用になる前に、よくお読みください。</p></div>
+
+        <div class="section"><h2>1. 規約への同意</h2>
+          <p>Ksori にアクセスまたはご利用いただくことで、本規約に拘束されることに同意します。同意されない場合は、アプリをご利用にならないでください。</p>
+        </div>
+
+        <div class="section"><h2>2. サービスの説明</h2>
+          <p>Ksori は、以下を提供する韓国語スピーキング練習サービスです。</p>
+          <ul>
+            <li>AIキャラクターとの自由会話練習</li>
+            <li>音読に対する発音評価</li>
+            <li>会話で出た表現・添削の復習</li>
+            <li>実生活のシチュエーションスクリプト</li>
+            <li>無料およびプレミアム（サブスクリプション）プラン</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>3. アカウント</h2>
+          <ul>
+            <li>メール、Google、Appleでログインするか、ゲスト（匿名）としてご利用いただけます。</li>
+            <li>認証情報および端末へのアクセス管理はお客様の責任です。</li>
+            <li>ゲスト（匿名）セッションは失われた場合、復元できません。</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>4. サブスクリプションと請求</h2>
+          <ul>
+            <li>プレミアムはGoogle Playを通じて月額・年額のサブスクリプションとして提供されます。</li>
+            <li>すべての決済はGoogle Playを通じて処理されます。当社はカード情報を直接取り扱いません。</li>
+            <li>サブスクリプションは更新日の少なくとも24時間前にキャンセルしない限り自動更新されます。Google Playのアカウント設定から管理・キャンセルできます。</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>5. 返金ポリシー</h2>
+          <p>返金はGoogle Playのポリシーに準拠します。返金はGoogle Playに直接お問い合わせください。当社は返金を直接処理しません。</p>
+        </div>
+
+        <div class="section"><h2>6. 禁止事項</h2>
+          <p>以下の行為を行わないことに同意します。</p>
+          <ul>
+            <li>違法な目的でのサービス利用</li>
+            <li>セキュリティ対策を侵害し、または利用制限を回避しようとする行為</li>
+            <li>他者への虐待・嫌がらせ・加害、または有害なコンテンツの投稿</li>
+          </ul>
+        </div>
+
+        <div class="section"><h2>7. AIコンテンツの精度に関する免責</h2>
+          <p>Ksori は自動音声認識およびAI言語モデルを使用しています。AIの応答・添削・発音スコアの正確性・完全性・適切性を保証しません。学習補助ツールとしてのみご利用ください。</p>
+        </div>
+
+        <div class="section"><h2>8. 責任の制限</h2>
+          <p>Ksori はいかなる保証もなく「現状のまま」提供されます。当社は、サービスの利用によって生じた間接的・付随的・結果的損害について責任を負いません。</p>
+        </div>
+
+        <div class="section"><h2>9. 解約およびアカウント削除</h2>
+          <p>お客様が本規約に違反した場合、当社はサービスへのアクセスを停止または解約する権利を有します。お客様はいつでも設定 &gt; アカウント削除からアカウントを削除するか、アカウント削除請求ページから削除を請求できます。</p>
+        </div>
+
+        <div class="section"><h2>10. 規約の変更</h2>
+          <p>当社は本規約を随時更新することがあります。重要な変更はアプリまたは本ページでお知らせします。変更後もご利用を継続された場合、新しい規約に同意したものとみなされます。</p>
+        </div>
+
+        <div class="section"><h2>11. 準拠法</h2>
+          <p>本規約は大韓民国の法律に準拠します。あらゆる紛争は大韓民国の裁判所で解決されます。</p>
+        </div>
+
+        <div class="section"><h2>12. お問い合わせ</h2>
+          <div class="contact"><p>100bear@daum.net</p><p style="margin-top:8px; font-weight:400; color:#176B54;">本規約に関するお問い合わせは上記までご連絡ください。</p></div>
+        </div>`
+    }
+  };
+
+  var curLang = 'en';
+  var curPage = 'privacy';
+
+  function render() {
+    document.documentElement.lang = curLang;
+    document.getElementById('navPrivacy').textContent = navLabels[curLang].privacy;
+    document.getElementById('navTerms').textContent = navLabels[curLang].terms;
+    document.getElementById('navPrivacy').className = (curPage === 'privacy') ? 'active' : '';
+    document.getElementById('navTerms').className = (curPage === 'terms') ? 'active' : '';
+    var langBtns = document.querySelectorAll('.langbar button');
+    for (var i = 0; i < langBtns.length; i++) {
+      langBtns[i].className = (langBtns[i].getAttribute('data-lang') === curLang) ? 'active' : '';
+    }
+    document.getElementById('content').innerHTML =
+      '<p class="updated">' + updatedLabel[curLang] + '</p>' + C[curLang][curPage];
+  }
+  function setLang(l) { curLang = l; render(); }
+  function setPage(p) { curPage = p; render(); }
+  if (location.hash === '#terms') curPage = 'terms';
+  render();
+</script>
+
+</body>
+</html>
